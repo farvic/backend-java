@@ -1,0 +1,5 @@
+Cinema Rest project. More infos soon.
+
+The code is on Cinema Room REST Service\task\src.
+
+Moved from the [original repo](https://github.com/farvic/java-projects/tree/main/gradleproject/Cinema%20Room%20REST%20Service) in order to create a repo only for this course.
