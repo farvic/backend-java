@@ -1,20 +1,5 @@
 type: edu
 files:
-- name: src/cinema/Main.java
-  visible: true
-  text: |
-    package cinema;
-
-    import org.springframework.boot.SpringApplication;
-    import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-    @SpringBootApplication
-    public class Main {
-        public static void main(String[] args) {
-            SpringApplication.run(Main.class, args);
-        }
-    }
-  learner_created: false
 - name: build.gradle
   visible: true
   text: |-
@@ -511,6 +496,39 @@ files:
         }
     }
   learner_created: true
+- name: src/cinema/domain/Token.java
+  visible: true
+  text: |
+    package cinema.domain;
+
+    import java.util.UUID;
+
+    public class Token {
+        private String token;
+
+        public Token() {}
+
+        public Token(String token) {
+    //        this.token = UUID.randomUUID().toString();
+            this.token = token;
+        }
+
+        public String getToken() {
+            return token;
+        }
+
+        public void setToken(String token) {
+            this.token = token;
+        }
+
+        @Override
+        public String toString() {
+            return "Token{" +
+                    "token='" + token + '\'' +
+                    '}';
+        }
+    }
+  learner_created: true
 - name: src/cinema/repo/CinemaRepository.java
   visible: true
   text: |
@@ -529,6 +547,32 @@ files:
     //    Cinema findById(Integer integer);
 
     }
+  learner_created: true
+- name: src/cinema/domain/Cinema.java
+  visible: true
+  learner_created: true
+- name: src/cinema/repo/OrderRepository.java
+  visible: true
+  text: |
+    package cinema.repo;
+
+    import cinema.domain.Order;
+    import cinema.domain.Seat;
+    import org.springframework.data.jpa.repository.JpaRepository;
+    import org.springframework.data.repository.CrudRepository;
+    import org.springframework.stereotype.Repository;
+
+    import java.util.UUID;
+
+    @Repository
+    public interface OrderRepository extends JpaRepository<Order, String> {
+            Order findByToken(String token);
+
+
+    }
+  learner_created: true
+- name: src/cinema/domain/Stats.java
+  visible: true
   learner_created: true
 - name: src/cinema/web/CinemaController.java
   visible: true
@@ -594,50 +638,23 @@ files:
 
     }
   learner_created: true
-- name: src/cinema/repo/OrderRepository.java
+- name: src/cinema/Main.java
   visible: true
   text: |
-    package cinema.repo;
+    package cinema;
 
-    import cinema.domain.Order;
-    import cinema.domain.Seat;
-    import org.springframework.data.jpa.repository.JpaRepository;
-    import org.springframework.data.repository.CrudRepository;
-    import org.springframework.stereotype.Repository;
+    import org.springframework.boot.SpringApplication;
+    import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-    import java.util.UUID;
-
-    @Repository
-    public interface OrderRepository extends JpaRepository<Order, String> {
-            Order findByToken(String token);
-
-
+    @SpringBootApplication
+    public class Main {
+        public static void main(String[] args) {
+            SpringApplication.run(Main.class, args);
+        }
     }
-  learner_created: true
-- name: src/cinema/util/OrderException.java
+  learner_created: false
+- name: src/cinema/service/OrderService.java
   visible: true
-  text: |
-    package cinema.util;
-
-    import org.springframework.web.bind.annotation.ResponseStatus;
-    import org.springframework.http.HttpStatus;
-
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public class OrderException extends RuntimeException {
-        private String error;
-
-        public OrderException(String error) {
-            this.error = error;
-        }
-
-        public void setError(String error) {
-            this.error = error;
-        }
-
-        public String getError() {
-            return error;
-        }
-    }
   learner_created: true
 - name: src/cinema/web/OrderController.java
   visible: true
@@ -760,46 +777,44 @@ files:
 
     }
   learner_created: true
-- name: src/cinema/domain/Token.java
+- name: src/cinema/errors/ErrorResponse.java
+  visible: true
+  learner_created: true
+- name: src/cinema/errors/CustomControllerAdvice.java
+  visible: true
+  learner_created: true
+- name: src/cinema/util/OrderSerializer.java
+  visible: true
+  learner_created: true
+- name: src/cinema/errors/OrderException.java
   visible: true
   text: |
-    package cinema.domain;
+    package cinema.util;
 
-    import java.util.UUID;
+    import org.springframework.web.bind.annotation.ResponseStatus;
+    import org.springframework.http.HttpStatus;
 
-    public class Token {
-        private String token;
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public class OrderException extends RuntimeException {
+        private String error;
 
-        public Token() {}
-
-        public Token(String token) {
-    //        this.token = UUID.randomUUID().toString();
-            this.token = token;
+        public OrderException(String error) {
+            this.error = error;
         }
 
-        public String getToken() {
-            return token;
+        public void setError(String error) {
+            this.error = error;
         }
 
-        public void setToken(String token) {
-            this.token = token;
-        }
-
-        @Override
-        public String toString() {
-            return "Token{" +
-                    "token='" + token + '\'' +
-                    '}';
+        public String getError() {
+            return error;
         }
     }
   learner_created: true
-- name: src/cinema/domain/Room.java
+- name: src/cinema/service/CinemaService.java
   visible: true
   learner_created: true
-- name: src/cinema/domain/Cinema.java
-  visible: true
-  learner_created: true
-- name: src/cinema/domain/Stats.java
+- name: src/cinema/service/SeatService.java
   visible: true
   learner_created: true
 feedback_link: https://hyperskill.org/learn/step/13378#comment
@@ -808,4 +823,4 @@ feedback:
   message: Well done! You've finished the project. Select a new project on <a href="https://hyperskill.org/projects">JetBrains
     Academy</a> to continue learning.
   time: "Sun, 12 Feb 2023 18:59:01 UTC"
-record: -1
+record: 4

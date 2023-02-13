@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface SeatRepository extends JpaRepository<Seat, Integer> {
@@ -15,7 +16,7 @@ public interface SeatRepository extends JpaRepository<Seat, Integer> {
     List<Seat> findByCinemaId(int cinemaId);
 
     List<Seat> findByCinemaIdAndIsAvailable(int cinemaId, boolean isAvailable);
-    Seat findByRowAndColumn(int row, int column);
+    Optional<Seat> findByRowAndColumn(int row, int column);
 
 
 
