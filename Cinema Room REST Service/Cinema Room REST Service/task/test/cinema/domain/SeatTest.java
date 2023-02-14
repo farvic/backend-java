@@ -1,43 +1,86 @@
 package cinema.domain;
 
-import junit.framework.TestCase;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class SeatTest extends TestCase {
+//import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 
-    @Test
-    void getId() {
+class SeatTest {
+
+    private Seat seatUnderTest;
+
+    @BeforeEach
+    void setUp() {
+        seatUnderTest = new Seat(1, 1, 10, false);
     }
 
     @Test
-    void setId() {
+    public void testConstructorAndGetters() throws Exception {
+        assertThat(seatUnderTest.getId(),is(0));
+        assertThat(seatUnderTest.getRow(),is(1));
+        assertThat(seatUnderTest.getColumn(),is(1));
+        assertThat(seatUnderTest.getPrice(),is(10));
+        assertThat(seatUnderTest.isAvailable(),is(false));
     }
 
     @Test
-    void isAvailable() {
+    void testSetId() {
+        // Setup
+        final int id = 2;
+
+        // Run the test
+        seatUnderTest.setId(id);
+
+        // Verify the results
+        assertThat(seatUnderTest.getId(),is(2));
+    }
+    @Test
+    void testSetPrice() {
+        // Setup
+        final int price = 2;
+
+        // Run the test
+        seatUnderTest.setPrice(price);
+
+        // Verify the results
+        assertThat(seatUnderTest.getPrice(),is(2));
+    }
+    @Test
+    void testSetRow() {
+        // Setup
+        final int row = 2;
+
+        // Run the test
+        seatUnderTest.setRow(row);
+
+        // Verify the results
+        assertThat(seatUnderTest.getRow(),is(2));
+    }
+    @Test
+    void testSetColumn() {
+        // Setup
+        final int column = 2;
+
+        // Run the test
+        seatUnderTest.setColumn(column);
+
+        // Verify the results
+        assertThat(seatUnderTest.getColumn(),is(2));
     }
 
     @Test
-    void setAvailable() {
+    void testSetAvailable() {
+        // Setup
+        final boolean available = false;
+
+        // Run the test
+        seatUnderTest.setIsAvailable(available);
+
+        // Verify the results
+        assertThat(seatUnderTest.isAvailable(),is(false));
     }
 
-    @Test
-    void getRow() {
-    }
 
-    @Test
-    void setRow() {
-    }
-
-    @Test
-    void getColumn() {
-    }
-
-    @Test
-    void setColumn() {
-    }
-
-    @Test
-    public void testToString() {
-    }
 }

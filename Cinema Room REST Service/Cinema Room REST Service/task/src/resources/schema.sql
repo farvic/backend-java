@@ -5,17 +5,17 @@ CREATE TABLE cinema (
 );
 
 CREATE table orders (
-    seat_id int UNIQUE NOT NULL,
+    seat_id INT UNIQUE NOT NULL,
     token VARCHAR(36) PRIMARY KEY
 );
 
 CREATE TABLE seats (
-    seat_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    seat_id INT AUTO_INCREMENT PRIMARY KEY,
     seat_row INT NOT NULL,
     seat_column INT NOT NULL,
     price INT NOT NULL,
     available boolean NOT NULL,
-    cinema_id int NOT NULL -- room_id INT NOT NULL -- FOREIGN KEY (room_id) REFERENCES Room(id)
+    cinema_id INT NOT NULL
 );
 
 

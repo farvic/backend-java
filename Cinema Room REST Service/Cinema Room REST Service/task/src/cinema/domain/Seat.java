@@ -14,7 +14,7 @@ public class Seat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "seat_id")
     @JsonIgnore
-    private long id;
+    private int id;
     @Column(name = "seat_row")
     private int row;
     @Column(name = "seat_column")
@@ -31,12 +31,13 @@ public class Seat {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "cinema_id",nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private Cinema cinema;
 
     protected Seat() {
     }
 
-    public Seat(int row, int column) {
+    public Seat(int row, int column, int price) {
         this.row = row;
         this.column = column;
         this.price = price;
@@ -48,11 +49,11 @@ public class Seat {
         this.isAvailable = isAvailable;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -91,11 +92,15 @@ public class Seat {
         this.isAvailable = isAvailable;
     }
 
+
     @Override
     public String toString() {
-        return "Seat [id=" + id + ", row=" + row + ", column=" + column + "]";
+        return "Seat [id=" + id + ", row=" + row + ", column=" + column + ", price=" + price + ", isAvailable=" + isAvailable + "]";
     }
 
 
+    public Cinema getCinema() {
+        return cinema;
+    }
 
 }

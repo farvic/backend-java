@@ -1,12 +1,13 @@
 package cinema.service;
 
 import cinema.domain.Cinema;
+
 import cinema.domain.Seat;
 import cinema.repo.CinemaRepository;
+
 import cinema.repo.SeatRepository;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,4 +34,6 @@ public class CinemaService {
 
         return cinema;
     }
+
+
 }

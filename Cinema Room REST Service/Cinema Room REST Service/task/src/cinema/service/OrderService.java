@@ -1,15 +1,11 @@
 package cinema.service;
 
-import cinema.domain.Order;
-import cinema.domain.Seat;
-import cinema.domain.Stats;
-import cinema.domain.Token;
+import cinema.domain.*;
 import cinema.repo.OrderRepository;
 import cinema.repo.SeatRepository;
 import cinema.errors.OrderException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 
 import org.springframework.stereotype.Service;
@@ -21,7 +17,6 @@ import java.util.List;
 public class OrderService {
     private final OrderRepository orderRepository;
     private final SeatRepository seatRepository;
-
     private static final Logger LOGGER =  LoggerFactory.getLogger(OrderRepository.class);
 
     public OrderService(OrderRepository orderRepository, SeatRepository seatRepository) {
@@ -71,12 +66,17 @@ public class OrderService {
 
         seatRepository.save(seat);
 
+        Order _order = new Order(order.getToken(),order.getTicket(), true);
+
+        order.setTicket(null);
+
         orderRepository.delete(order);
 
-        order.setReturn(true);
+        return _order;
 
-        return order;
-
+    }
+    public List<Order> getOrders() {
+        return orderRepository.findAll();
     }
 
     public Stats getStats(String password) {

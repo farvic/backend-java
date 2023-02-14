@@ -35,53 +35,6 @@ files:
 
     }
   learner_created: false
-- name: test/cinema/domain/SeatTest.java
-  visible: true
-  text: |-
-    package cinema.domain;
-
-    import junit.framework.TestCase;
-    import org.junit.jupiter.api.Test;
-
-    public class SeatTest extends TestCase {
-
-        @Test
-        void getId() {
-        }
-
-        @Test
-        void setId() {
-        }
-
-        @Test
-        void isAvailable() {
-        }
-
-        @Test
-        void setAvailable() {
-        }
-
-        @Test
-        void getRow() {
-        }
-
-        @Test
-        void setRow() {
-        }
-
-        @Test
-        void getColumn() {
-        }
-
-        @Test
-        void setColumn() {
-        }
-
-        @Test
-        public void testToString() {
-        }
-    }
-  learner_created: false
 - name: test/CinemaTests.java
   visible: false
   text: |-
@@ -421,26 +374,6 @@ files:
         };
     }
   learner_created: false
-- name: test/cinema/web/SeatControllerTest.java
-  visible: true
-  text: |-
-    package cinema.web;
-
-    import org.junit.jupiter.api.Test;
-
-    import static org.junit.jupiter.api.Assertions.*;
-
-    class SeatControllerTest {
-
-        @Test
-        void getAllSeats() {
-        }
-
-        @Test
-        void findByAvailability() {
-        }
-    }
-  learner_created: false
 - name: src/cinema/domain/Order.java
   visible: true
   text: |
@@ -574,6 +507,58 @@ files:
 - name: src/cinema/domain/Stats.java
   visible: true
   learner_created: true
+- name: src/cinema/Main.java
+  visible: true
+  text: |
+    package cinema;
+
+    import org.springframework.boot.SpringApplication;
+    import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+    @SpringBootApplication
+    public class Main {
+        public static void main(String[] args) {
+            SpringApplication.run(Main.class, args);
+        }
+    }
+  learner_created: false
+- name: src/cinema/errors/ErrorResponse.java
+  visible: true
+  learner_created: true
+- name: src/cinema/errors/CustomControllerAdvice.java
+  visible: true
+  learner_created: true
+- name: src/cinema/errors/OrderException.java
+  visible: true
+  text: |
+    package cinema.util;
+
+    import org.springframework.web.bind.annotation.ResponseStatus;
+    import org.springframework.http.HttpStatus;
+
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public class OrderException extends RuntimeException {
+        private String error;
+
+        public OrderException(String error) {
+            this.error = error;
+        }
+
+        public void setError(String error) {
+            this.error = error;
+        }
+
+        public String getError() {
+            return error;
+        }
+    }
+  learner_created: true
+- name: src/cinema/service/SeatService.java
+  visible: true
+  learner_created: true
+- name: src/cinema/service/OrderService.java
+  visible: true
+  learner_created: true
 - name: src/cinema/web/CinemaController.java
   visible: true
   text: |-
@@ -638,22 +623,7 @@ files:
 
     }
   learner_created: true
-- name: src/cinema/Main.java
-  visible: true
-  text: |
-    package cinema;
-
-    import org.springframework.boot.SpringApplication;
-    import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-    @SpringBootApplication
-    public class Main {
-        public static void main(String[] args) {
-            SpringApplication.run(Main.class, args);
-        }
-    }
-  learner_created: false
-- name: src/cinema/service/OrderService.java
+- name: src/cinema/util/OrderSerializer.java
   visible: true
   learner_created: true
 - name: src/cinema/web/OrderController.java
@@ -777,44 +747,22 @@ files:
 
     }
   learner_created: true
-- name: src/cinema/errors/ErrorResponse.java
-  visible: true
-  learner_created: true
-- name: src/cinema/errors/CustomControllerAdvice.java
-  visible: true
-  learner_created: true
-- name: src/cinema/util/OrderSerializer.java
-  visible: true
-  learner_created: true
-- name: src/cinema/errors/OrderException.java
-  visible: true
-  text: |
-    package cinema.util;
-
-    import org.springframework.web.bind.annotation.ResponseStatus;
-    import org.springframework.http.HttpStatus;
-
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public class OrderException extends RuntimeException {
-        private String error;
-
-        public OrderException(String error) {
-            this.error = error;
-        }
-
-        public void setError(String error) {
-            this.error = error;
-        }
-
-        public String getError() {
-            return error;
-        }
-    }
-  learner_created: true
 - name: src/cinema/service/CinemaService.java
   visible: true
   learner_created: true
-- name: src/cinema/service/SeatService.java
+- name: test/cinema/domain/StatsTest.java
+  visible: true
+  learner_created: true
+- name: test/cinema/domain/SeatTest.java
+  visible: true
+  learner_created: true
+- name: test/cinema/domain/OrderTest.java
+  visible: true
+  learner_created: true
+- name: test/cinema/service/OrderServiceTest.java
+  visible: true
+  learner_created: true
+- name: test/cinema/web/OrderControllerTest.java
   visible: true
   learner_created: true
 feedback_link: https://hyperskill.org/learn/step/13378#comment

@@ -18,7 +18,6 @@ class CustomControllerAdvice {
         return new ResponseEntity<>(
                 new ErrorResponse(
                         e.getError()
-
                 ),
                 status
         );
