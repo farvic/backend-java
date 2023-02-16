@@ -31,7 +31,7 @@ public class SeatService {
     }
 
     @GetMapping("/seat")
-    public Seat getSeatById(@RequestBody Seat seat) {
+    public Seat getSeatByRowAndColumn(@RequestBody Seat seat) {
         return seatRepository.findByRowAndColumn(seat.getRow(), seat.getColumn())
                 .orElseThrow(() -> new OrderException("The number of a row or a column is out of bounds!"));
     }

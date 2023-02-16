@@ -30,8 +30,8 @@ public class SeatController {
     }
 
     @GetMapping("/seat")
-    public Seat getSeatById(@RequestBody Seat seat) {
-        return seatService.getSeatById(seat);
+    public Seat getSeatByRowAndColumn(@RequestBody Seat seat) {
+        return seatService.getSeatByRowAndColumn(seat);
     }
 
 }

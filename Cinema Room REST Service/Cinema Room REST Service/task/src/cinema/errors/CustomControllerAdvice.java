@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 
 @RestControllerAdvice
-class CustomControllerAdvice {
+public class CustomControllerAdvice {
     @ExceptionHandler(RuntimeException.class) // exception handled
     public ResponseEntity<ErrorResponse> handleOrderExceptions(
             OrderException e

@@ -4,8 +4,6 @@ import cinema.Main;
 import cinema.domain.Order;
 import cinema.domain.Seat;
 import cinema.domain.Stats;
-import cinema.domain.Token;
-import cinema.errors.CustomControllerAdvice;
 import cinema.errors.OrderException;
 import cinema.repo.OrderRepository;
 import cinema.repo.SeatRepository;
@@ -67,7 +65,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 //@Transactional
 //@Sql(scripts={"file:D:/java/hyperskill/Cinema Room REST Service/Cinema Room REST Service/task/test/schema.sql", "file:D:/java/hyperskill/Cinema Room REST Service/Cinema Room REST Service/task/test/data.sql"},config = @SqlConfig(encoding = "utf-8"))
 //@Sql(scripts={"/data.sql"},config = @SqlConfig(encoding = "utf-8", transactionMode = SqlConfig.TransactionMode.ISOLATED))
-class OrderControllerTest {
+class OrderControllerWebTest {
 
     @MockBean
     private OrderService orderService;
@@ -91,21 +89,19 @@ class OrderControllerTest {
 
 //    @Autowired
 //    private WebApplicationContext webApplicationContext;
-    final ObjectMapper objectMapper;
+
     final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public OrderControllerTest(DataSource dataSource, ObjectMapper objectMapper) {
+    public OrderControllerWebTest(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
-        this.objectMapper = objectMapper;
     }
 
 
     @BeforeEach
     void setUp() {
-
         JacksonTester.initFields(this, new ObjectMapper());
-        this.mockMvc = MockMvcBuilders.standaloneSetup(new OrderController(orderService)).setControllerAdvice(new CustomControllerAdvice()).alwaysDo(print()).build();
+        this.mockMvc = MockMvcBuilders.standaloneSetup(new OrderController(orderService)).alwaysDo(print()).build();
 
 
     }
@@ -156,14 +152,13 @@ class OrderControllerTest {
         // Setup
         final Seat seat = new Seat(1, 1, 10, true);
         Map<String, Integer> body = Map.of("row", 1, "column", 1);
-        final Order order = new Order(seat);
-
+        ObjectMapper objectMapper = new ObjectMapper();
 
 //        when(mockSeatRepository.findByRowAndColumn(1, 1)).thenReturn(Optional.of(new Seat(1, 1, 10, true)));
 //        when(mockSeatRepository.save(any(Seat.class))).thenReturn(new Seat(1, 1, 10, true));
 //        when(mockOrderRepository.save(any(Order.class))).thenReturn(new Order(seat));
-        when(orderService.purchaseSeat(seat)).thenReturn(order);
-//        given(orderService.purchaseSeat(seat)).willReturn(order);
+//        when(orderService.purchaseSeat(seat)).thenReturn(new Order(seat));
+        given(orderService.purchaseSeat(seat)).willReturn(new Order(seat));
         // Run the test
         final MockHttpServletResponse response = mockMvc.perform(post("/purchase")
                         .content(objectMapper.writeValueAsString(seat)).contentType(MediaType.APPLICATION_JSON_VALUE).characterEncoding("utf-8")
@@ -174,34 +169,26 @@ class OrderControllerTest {
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
 
         String responseBody = response.getContentAsString();
+        assertThat(responseBody).isNotEmpty();
 
-
-//        Order order = objectMapper.readValue(responseBody, Order.class);
+        Order order = objectMapper.readValue(responseBody, Order.class);
 //        assertThat(order.getToken()).isNotEmpty();
         assertThat(order.getTicket().getRow()).isEqualTo(1);
         assertThat(order.getTicket().getColumn()).isEqualTo(1);
-        assertThat(responseBody).isEqualTo("{\"token\":\"" + order.getToken() + "\",\"ticket\":{\"row\":1,\"column\":1}}");
     }
 
     @Test
     void testRefundTicket() throws Exception {
         // Setup
-        final Seat seat = new Seat(1, 1, 10, true);
-        final Order order = new Order("token",seat, true);
-        final Token token = new Token("token");
-
-        when(orderService.refundTicket(token)).thenReturn(order);
-
-
         // Run the test
         final MockHttpServletResponse response = mockMvc.perform(post("/return")
-                        .content(objectMapper.writeValueAsString(token)).contentType(MediaType.APPLICATION_JSON)
-                        .characterEncoding("utf-8").accept(MediaType.APPLICATION_JSON))
+                        .content("content").contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
         // Verify the results
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString()).isEqualTo("{\"returned_ticket\":{\"row\":1,\"column\":1},\"refund\":10}");
+        assertThat(response.getContentAsString()).isEqualTo("expectedResponse");
     }
 
     @Test
@@ -223,8 +210,8 @@ class OrderControllerTest {
     @Test
     void testStatsEndpoint_ThrowsOrderException() throws Exception {
         // Setup
-        when(orderService.getStats("password")).thenThrow(new OrderException("The password is wrong!", HttpStatus.UNAUTHORIZED));
-//        given(orderService.getStats("password")).willThrow(new OrderException("The password is wrong!", HttpStatus.UNAUTHORIZED));
+//        when(orderService.getStats("password")).thenThrow(new OrderException("The password is wrong!", HttpStatus.UNAUTHORIZED));
+        given(orderService.getStats("password")).willThrow(new OrderException("The password is wrong!", HttpStatus.UNAUTHORIZED));
         // Run the test
 //        assertThrows(OrderException.class, () -> orderService.getStats("password"));
         final MockHttpServletResponse response = mockMvc.perform(post("/stats").queryParam("password","password")
@@ -234,6 +221,6 @@ class OrderControllerTest {
 
         // Verify the results
         assertThat(response.getStatus()).isEqualTo(HttpStatus.UNAUTHORIZED.value());
-        assertThat(response.getContentAsString()).isEqualTo("{\"error\":\"The password is wrong!\"}");
+        assertThat(response.getContentAsString()).isEqualTo("expectedResponse");
     }
 }

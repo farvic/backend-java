@@ -88,6 +88,7 @@ public class OrderService {
         if (password == null || !password.equals("super_secret")) {
             throw new OrderException("The password is wrong!", HttpStatus.UNAUTHORIZED);
         }
+        LOGGER.info("Password is correct");
 
         List<Order> order = orderRepository.findAll();
 
