@@ -13,7 +13,7 @@ public class CustomControllerAdvice {
             OrderException e
     ) {
 
-        HttpStatus status = e.getStatus(); // 404
+        HttpStatus status = e.getStatus();
 
         return new ResponseEntity<>(
                 new ErrorResponse(
@@ -22,7 +22,6 @@ public class CustomControllerAdvice {
                 status
         );
     }
-
 
     @ExceptionHandler(Exception.class) // exception handled
     public ResponseEntity<ErrorResponse> handleExceptions(

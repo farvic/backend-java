@@ -49,6 +49,14 @@ public class Seat {
         this.isAvailable = isAvailable;
     }
 
+    public Seat(int id, int row, int column, int price, boolean isAvailable) {
+        this.id = id;
+        this.row = row;
+        this.column = column;
+        this.price = price;
+        this.isAvailable = isAvailable;
+    }
+
     public int getId() {
         return id;
     }
@@ -96,6 +104,14 @@ public class Seat {
     @Override
     public String toString() {
         return "Seat [id=" + id + ", row=" + row + ", column=" + column + ", price=" + price + ", isAvailable=" + isAvailable + "]";
+    }
+
+    public String toJsonString() {
+        return "{" +
+                "\"row\":" + row +
+                ",\"column\":" + column +
+                ",\"price\":" + price +
+                "}";
     }
 
 

@@ -34,4 +34,21 @@ public class Stats {
     public void setNumberOfPurchasedTickets(int numberOfPurchasedTickets) {
         this.numberOfPurchasedTickets = numberOfPurchasedTickets;
     }
+
+    @Override
+    public String toString() {
+        return "Stats{" +
+                "current_income:" + currentIncome +
+                ", number_of_available_seats:" + numberOfAvailableSeats +
+                ", number_of_purchased_tickets:" + numberOfPurchasedTickets +
+                '}';
+    }
+
+    public String toJsonString() {
+        return "{" +
+                "\"current_income\":" + currentIncome +
+                ",\"number_of_available_seats\":" + numberOfAvailableSeats +
+                ",\"number_of_purchased_tickets\":" + numberOfPurchasedTickets +
+                "}";
+    }
 }

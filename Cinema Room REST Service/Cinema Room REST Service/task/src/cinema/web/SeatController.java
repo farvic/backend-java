@@ -1,6 +1,8 @@
 package cinema.web;
 
+import cinema.domain.Order;
 import cinema.domain.Seat;
+import cinema.domain.Token;
 import cinema.repo.CinemaRepository;
 import cinema.repo.SeatRepository;
 import cinema.service.SeatService;
@@ -26,7 +28,17 @@ public class SeatController {
 
     @GetMapping("/seats-list")
     public List<Seat> getAvailableSeats() {
-        return seatService.getAlSeats();
+        return seatService.getAllSeats();
+    }
+
+    @PostMapping(value="/purchase", consumes = "application/json", produces = "application/json")
+    public Order purchaseSeat(@RequestBody Seat seat)  {
+        return seatService.purchaseSeat(seat);
+    }
+
+    @PostMapping("/return")
+    public Order refundTicket(@RequestBody Token token)  {
+        return seatService.refundTicket(token);
     }
 
     @GetMapping("/seat")

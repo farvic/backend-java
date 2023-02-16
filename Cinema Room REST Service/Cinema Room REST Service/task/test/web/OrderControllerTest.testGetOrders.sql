@@ -1,1 +1,0 @@
-INSERT INTO orders (seat_id, token) VALUES (1,"a")

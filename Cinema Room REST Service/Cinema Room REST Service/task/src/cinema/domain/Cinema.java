@@ -27,6 +27,11 @@ public class Cinema {
     protected Cinema() {
 
     }
+
+    public Cinema(List<Seat> availableSeats) {
+        this.availableSeats = availableSeats;
+    }
+
     public int getTotalRows() {
         return totalRows;
     }
@@ -40,6 +45,19 @@ public class Cinema {
 
     public void setAvailableSeats(List<Seat> availableSeats) {
         this.availableSeats = availableSeats;
+    }
+
+
+    public String toJsonString() {
+        String seats = availableSeats.stream()
+                .map(Seat::toJsonString)
+                .reduce((s1, s2) -> s1 + "," + s2)
+                .orElse("");
+        return "{" +
+            "\"total_rows\":" + totalRows +
+            ",\"total_columns\":" + totalColumns +
+            ",\"available_seats\":[" + seats +
+            "]}";
     }
 
 }
