@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e5a01a35-3eea-4b14-aba4-a62b2b9e8607" name="Changes" comment="Refactoring and unit tests.&#10;&#10;Now the services have an interface and implementation.&#10;The unit tests for entities, services and controllers were implemented.&#10;&#10;More infos soon.">
+      <change afterPath="$PROJECT_DIR$/../Cinema Room REST Service/.idea/modules/Cinema Room REST Service/task/bin/default/bin/default/bin/default/build/tmp/bin/Cinema_Room_REST_Service.Cinema_Room_REST_Service-task-bin-default-bin-default-bin-default-build-tmp-bin.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Cinema Room REST Service/.idea/modules/Cinema Room REST Service/task/bin/default/bin/default/bin/default/build/tmp/bin/Cinema_Room_REST_Service.Cinema_Room_REST_Service-task-bin-default-bin-default-bin-default-build-tmp-bin.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Cinema Room REST Service/.gradle/7.3.3/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../Cinema Room REST Service/.gradle/7.3.3/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Cinema Room REST Service/.gradle/7.3.3/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../Cinema Room REST Service/.gradle/7.3.3/checksums/sha1-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Cinema Room REST Service/.gradle/7.3.3/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../Cinema Room REST Service/.gradle/7.3.3/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Cinema Room REST Service/.gradle/7.3.3/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../Cinema Room REST Service/.gradle/7.3.3/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Cinema Room REST Service/.gradle/7.3.3/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../Cinema Room REST Service/.gradle/7.3.3/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Cinema Room REST Service/.gradle/7.3.3/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../Cinema Room REST Service/.gradle/7.3.3/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Cinema Room REST Service/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../Cinema Room REST Service/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Cinema Room REST Service/Cinema Room REST Service/The statistics/task-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../Cinema Room REST Service/Cinema Room REST Service/The statistics/task-info.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Cinema Room REST Service/course-remote-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../Cinema Room REST Service/course-remote-info.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/POST updates/task-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/POST updates/task-info.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/Show the code/task-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/Show the code/task-info.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/Snippets feed/task-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/Snippets feed/task-info.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/Super secret snippets/task-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/Super secret snippets/task-info.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/Work with the database/task-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/Work with the database/task-info.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/lesson-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/lesson-info.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/task/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/task/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/task/out/production/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/task/out/production/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/task/src/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/task/src/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/task/test/CodeSharingPlatformTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/task/test/CodeSharingPlatformTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Code Sharing Platform/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../Code Sharing Platform/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Code Sharing Platform/course-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../Code Sharing Platform/course-info.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Code Sharing Platform/course-remote-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../Code Sharing Platform/course-remote-info.yaml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="JpbToolWindowState">
+    <option name="isToolWindowVisible" value="false" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2LzTHaRqP2V5r40afjgUAJ2de9M" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Edu.Yaml.Migrate": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "D:/java/hyperskill/Code Sharing Platform1",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.55517244",
+    "settings.editor.selected.configurable": "Docker",
+    "spring.configuration.checksum": "ff7a17db6e16f35c5b68c1e4c08dce54",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="AccountServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="Account_Service.Account_Service-task.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="account.AccountServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e5a01a35-3eea-4b14-aba4-a62b2b9e8607" name="Changes" comment="" />
+      <created>1676872824713</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1676872824713</updated>
+      <workItem from="1676872830097" duration="293000" />
+      <workItem from="1676912205925" duration="4250000" />
+      <workItem from="1676918842201" duration="13811000" />
+    </task>
+    <task id="LOCAL-00001" summary="Refactoring and unit tests.&#10;&#10;Now the services have an interface and implementation.&#10;The unit tests for entities, services and controllers were implemented.&#10;&#10;More infos soon.">
+      <created>1676938521579</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1676938521580</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Refactoring and unit tests.&#10;&#10;Now the services have an interface and implementation.&#10;The unit tests for entities, services and controllers were implemented.&#10;&#10;More infos soon.">
+      <created>1676938672005</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1676938672005</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Refactoring and unit tests.&#10;&#10;Now the services have an interface and implementation.&#10;The unit tests for entities, services and controllers were implemented.&#10;&#10;More infos soon.">
+      <created>1676938736994</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1676938736994</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="[Account Service] Part 1 implemented.&#10;&#10;POST /auth/signup was implemented with the required user validations." />
+    <MESSAGE value="Refactoring and unit tests.&#10;&#10;Now the services have an interface and implementation.&#10;The unit tests for entities, services and controllers were implemented.&#10;&#10;More infos soon." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactoring and unit tests.&#10;&#10;Now the services have an interface and implementation.&#10;The unit tests for entities, services and controllers were implemented.&#10;&#10;More infos soon." />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

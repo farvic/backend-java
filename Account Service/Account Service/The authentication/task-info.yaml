@@ -1,0 +1,969 @@
+type: edu
+files:
+- name: src/account/AccountServiceApplication.java
+  visible: true
+  text: |-
+    package account;
+
+    import org.springframework.boot.SpringApplication;
+    import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+    @SpringBootApplication
+    public class AccountServiceApplication {
+
+        public static void main(String[] args) {
+            SpringApplication.run(AccountServiceApplication.class, args);
+        }
+
+    }
+  learner_created: false
+- name: src/resources/application.properties
+  visible: true
+  text: |-
+    server.port=28852
+    management.endpoints.web.exposure.include=*
+    management.endpoint.shutdown.enabled=true
+    spring.jackson.serialization.INDENT_OUTPUT=true
+  learner_created: false
+- name: build.gradle
+  visible: true
+  text: |-
+    plugins {
+        id 'java'
+        id 'org.springframework.boot' version '2.3.1.RELEASE'
+        id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    sourceSets.main.resources.srcDirs = ["src/resources"]
+
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter'
+        implementation 'org.springframework.boot:spring-boot-starter-actuator'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'com.h2database:h2'
+        implementation group: 'org.hibernate', name: 'hibernate-validator', version: '6.1.0.Final'
+    }
+  learner_created: false
+- name: test/AccountServiceTest.java
+  visible: false
+  text: |-
+    import account.AccountServiceApplication;
+    import com.fasterxml.jackson.annotation.JsonInclude;
+    import com.fasterxml.jackson.core.JsonProcessingException;
+    import com.fasterxml.jackson.databind.ObjectMapper;
+    import com.google.gson.JsonObject;
+    import org.hyperskill.hstest.dynamic.DynamicTest;
+    import org.hyperskill.hstest.dynamic.input.DynamicTesting;
+    import org.hyperskill.hstest.exception.outcomes.UnexpectedError;
+    import org.hyperskill.hstest.mocks.web.request.HttpRequest;
+    import org.hyperskill.hstest.mocks.web.response.HttpResponse;
+    import org.hyperskill.hstest.stage.SpringTest;
+    import org.hyperskill.hstest.testcase.CheckResult;
+    import java.util.*;
+    import static org.hyperskill.hstest.common.JsonUtils.getJson;
+    import static org.hyperskill.hstest.common.JsonUtils.getPrettyJson;
+    import static org.hyperskill.hstest.testing.expect.Expectation.expect;
+    import static org.hyperskill.hstest.testing.expect.json.JsonChecker.*;
+
+    class User {
+      private String name;
+      private String lastname;
+      private String email;
+      private String password;
+
+      public User(User another) {
+        this(another.name, another.lastname, another.email, another.password);
+      }
+
+      public User(String name, String lastname, String email, String password) {
+        this.name = name;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+      }
+
+      public String toJson() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        try {
+          return mapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+          System.out.println(e.getMessage());
+          return null;
+        }
+      }
+
+      public String getName() {
+        return name;
+      }
+
+      public User setName(String name) {
+        this.name = name;
+        return this;
+      }
+
+      public String getLastname() {
+        return lastname;
+      }
+
+      public User setLastname(String lastname) {
+        this.lastname = lastname;
+        return this;
+      }
+
+      public String getEmail() {
+        return email;
+      }
+
+      public User setEmail(String email) {
+        this.email = email;
+        return this;
+      }
+
+      public String getPassword() {
+        return password;
+      }
+
+      public User setPassword(String password) {
+        this.password = password;
+        return this;
+      }
+    }
+
+    public class AccountServiceTest extends SpringTest {
+
+      private  final String signUpApi = "/api/auth/signup";
+      private  final String paymentApi = "/api/empl/payment";
+      private final User johnDoe = new User("John", "Doe", "JohnDoe@acme.com", "secret");
+      private final User maxMustermann = new User("Max", "Mustermann", "MaxMustermann@acme.com", "secret");
+      private final User captainNemo = new User("Captain", "Nemo", "nautilus@pompilius.com", "wings");
+      private final String johnDoeCorrectUser = johnDoe.toJson();
+      private final String johnDoeEmptyName = new User(johnDoe).setName("").toJson();
+      private final String johnDoeNoName = new User(johnDoe).setName(null).toJson();
+      private final String johnDoeEmptyLastName = new User(johnDoe).setLastname("").toJson();
+      private final String johnDoeNoLastName = new User(johnDoe).setLastname(null).toJson();
+      private final String johnDoeEmptyEmail = new User(johnDoe).setEmail("").toJson();
+      private final String johnDoeNoEmail = new User(johnDoe).setLastname(null).toJson();
+      private final String johnDoeEmptyPassword = new User(johnDoe).setPassword("").toJson();
+      private final String johnDoeNoPassword = new User(johnDoe).setPassword(null).toJson();
+      private final String johnDoeWrongEmail1 = new User(johnDoe).setEmail("johndoeacme.com").toJson();
+      private final String johnDoeWrongEmail2 = new User(johnDoe).setEmail("johndoe@google.com").toJson();
+      private final String maxMustermannCorrectUser = maxMustermann.toJson();
+      private final String johnDoeCorrectUserLower = new User(johnDoe).setEmail(johnDoe.getEmail().toLowerCase()).toJson();
+      private final String maxMustermannCorrectUserLower = new User(maxMustermann).setEmail(maxMustermann.getEmail().toLowerCase()).toJson();
+      private final String johnDoeWrongPassword = new User(johnDoe).setPassword("none").toJson();
+      private final String johnDoeWrongPasswordCaseSensitive = new User(johnDoe).setPassword(johnDoe.getPassword().toUpperCase()).toJson();
+      private final String maxMustermannWrongPassword = new User(maxMustermann).setPassword("none").toJson();
+      private final String captainNemoWrongUser = captainNemo.toJson();
+
+      List<Integer> userIdList = new ArrayList<>();
+
+      public AccountServiceTest() {
+        super(AccountServiceApplication.class, "../service_db.mv.db");
+      }
+
+      /**
+       * Method for checking status code of response Post request for API
+       *
+       * @param api testing api (String)
+       * @param body string representation of body content in JSON format (String)
+       * @param status required http status for response (int)
+       * @return instance of CheckResult class containing result of checks (CheckResult)
+       */
+      CheckResult testPostApi(String api, String body, int status, String message) {
+        HttpResponse response = post(api, body).send();
+
+        if (response.getStatusCode() != status) {
+          return CheckResult.wrong("POST " + api + " should respond with "
+                  + "status code " + status + ", responded: " + response.getStatusCode() + "\n"
+                  + message + "\n"
+                  + "Response body:\n" + response.getContent() + "\n"
+                  + "Request body:\n" + body);
+        }
+        return CheckResult.correct();
+      }
+
+      /**
+       * Method for checking status code of response Get request for API
+       *
+       * @param api testing api (String)
+       * @param status required http status for response (int)
+       * @param message hint about reason of error (String)
+       * @return instance of CheckResult class containing result of checks (CheckResult)
+       */
+      CheckResult testGetApi(String api, int status, String message) {
+        HttpResponse response = get(api).send();
+
+        if (response.getStatusCode() != status) {
+          return CheckResult.wrong("GET " + api + " should respond with "
+                  + "status code " + status + ", responded: " + response.getStatusCode() + "\n"
+                  + message);
+        }
+        return CheckResult.correct();
+      }
+
+      /**
+       * Method for checking response on Post request for signup API
+       *
+       * @param body string representation of body content in JSON format (String)
+       * @param status required http status for response (int)
+       * @return instance of CheckResult class containing result of checks (CheckResult)
+       */
+      CheckResult testPostSignUpResponse(String body, int status) {
+        HttpResponse response = post(signUpApi, body).send();
+        testPostApi(signUpApi, body, status, "API must be available");
+
+        JsonObject rightResponse = getJson(body).getAsJsonObject();
+        rightResponse.remove("password");
+
+        // Check is it JSON in response or something else
+        if (!response.getJson().isJsonObject()) {
+          return CheckResult.wrong("Wrong object in response, expected JSON but was \n" +
+                  response.getContent().getClass());
+
+        }
+
+        JsonObject jsonResponse = response.getJson().getAsJsonObject();
+
+        // Check if password is presence in response
+        if (jsonResponse.get("password") != null) {
+          return CheckResult.wrong("You must remove password from response\n" +
+                  jsonResponse);
+        }
+
+        if (jsonResponse.get("id") == null) {
+          return CheckResult.wrong("Response must contain user ID\n" +
+                  "Received response:\n" +
+                  jsonResponse);
+        }
+
+
+        // Check JSON in response
+        expect(response.getContent()).asJson().check(
+                isObject()
+                        .value("id", isInteger())
+                        .value("name", rightResponse.get("name").getAsString())
+                        .value("lastname", rightResponse.get("lastname").getAsString())
+                        .value("email", isString(s -> s.equalsIgnoreCase(rightResponse.get("email").getAsString()))));
+
+        if (userIdList.contains(jsonResponse.get("id").getAsInt())) {
+          return CheckResult.wrong("User ID must be unique!\n" +
+                  "Received response:\n" +
+                  jsonResponse);
+        }
+
+        userIdList.add(jsonResponse.get("id").getAsInt());
+        return CheckResult.correct();
+      }
+
+      /**
+       * Method for restarting application
+       *
+       */
+      private CheckResult restartApplication() {
+        try {
+          reloadSpring();
+        } catch (Exception ex) {
+          throw new UnexpectedError(ex.getMessage());
+        }
+        return CheckResult.correct();
+      }
+
+      /**
+       * Method for checking authentication
+       *
+       * @param user string representation of user information in JSON format (String)
+       * @param status required http status for response (int)
+       * @param message hint about reason of error (String)
+       * @return instance of CheckResult class containing result of checks (CheckResult)
+       */
+      private CheckResult testUserRegistration(String user, int status, String message) {
+        JsonObject userJson = getJson(user).getAsJsonObject();
+        String password = userJson.get("password").getAsString();
+        String login = userJson.get("email").getAsString();
+        HttpResponse response = get(paymentApi).basicAuth(login, password).send();
+        if (response.getStatusCode() != status) {
+          return CheckResult.wrong("Get " + paymentApi + " should respond with "
+                  + "status code " + status + ", responded: " + response.getStatusCode() + "\n"
+                  + message + "\n"
+                  + "Authentication with " + login + " / " + password);
+        }
+        // Check JSON in response
+        if (status == 200) {
+          expect(response.getContent()).asJson().check(
+                  isObject()
+                          .value("id", isInteger())
+                          .value("name", userJson.get("name").getAsString())
+                          .value("lastname", userJson.get("lastname").getAsString())
+                          .value("email", isString(s -> s.equalsIgnoreCase(userJson.get("email").getAsString()))));
+        }
+        return CheckResult.correct();
+      }
+
+      /**
+       * Method for testing duplicate users
+       *
+       * @param user string representation of user information in JSON format (String)
+       * @return instance of CheckResult class containing result of checks (CheckResult)
+       */
+      private CheckResult testUserDuplicates(String user) {
+        HttpResponse response = post(signUpApi, user).send();
+        // Check error message field in JSON response
+        expect(response.getContent()).asJson().check(
+                isObject()
+                        .value("status", 400)
+                        .value("error", "Bad Request")
+                        .value("message", "User exist!")
+                        .anyOtherValues());
+        return CheckResult.correct();
+      }
+
+      @DynamicTest
+      DynamicTesting[] dt = new DynamicTesting[] {
+
+              // Test user registration on signup api
+              () -> testPostSignUpResponse(johnDoeCorrectUser, 200),
+              () -> testPostApi(signUpApi, johnDoeCorrectUser, 400, "User must be unique!"),
+              () -> testUserDuplicates(johnDoeCorrectUser),
+              () -> testPostApi(signUpApi, johnDoeCorrectUserLower, 400, "User must be unique (ignorecase)!"),
+              () -> testPostSignUpResponse(maxMustermannCorrectUserLower, 200),
+              () -> testPostApi(signUpApi, maxMustermannCorrectUserLower, 400, "User must be unique!"),
+              () -> testPostApi(signUpApi, maxMustermannCorrectUser, 400, "User must be unique (ignorecase)!"),
+
+              // Test wrong POST request for signup api
+              () -> testPostApi(signUpApi, johnDoeEmptyName, 400, "Empty name field!"),
+              () -> testPostApi(signUpApi, johnDoeNoName, 400, "Name field is absent!"),
+              () -> testPostApi(signUpApi, johnDoeEmptyLastName, 400, "Empty lastname field!"),
+              () -> testPostApi(signUpApi, johnDoeNoLastName, 400, "Lastname field is absent!"),
+              () -> testPostApi(signUpApi, johnDoeEmptyEmail, 400, "Empty email field!"),
+              () -> testPostApi(signUpApi, johnDoeNoEmail, 400, "Email field is absent!"),
+              () -> testPostApi(signUpApi, johnDoeEmptyPassword, 400, "Empty password field!"),
+              () -> testPostApi(signUpApi, johnDoeNoPassword, 400, "Password field is absent!"),
+              () -> testPostApi(signUpApi, johnDoeWrongEmail1, 400, "Wrong email!"),
+              () -> testPostApi(signUpApi, johnDoeWrongEmail2, 400, "Wrong email!"),
+
+              // Test authentication, positive tests
+              () -> testUserRegistration(johnDoeCorrectUserLower, 200, "User must login!"),
+              () -> testUserRegistration(johnDoeCorrectUser, 200, "Login case insensitive!"),
+              () -> testUserRegistration(maxMustermannCorrectUserLower, 200, "User must login!"),
+              () -> testUserRegistration(maxMustermannCorrectUser, 200, "Login case insensitive!"),
+
+              // Test authentication, negative tests
+              () -> testUserRegistration(johnDoeWrongPassword, 401, "Wrong password!"),
+              () -> testUserRegistration(johnDoeWrongPasswordCaseSensitive, 401,
+                      "Password must be case sensitive!"),
+              () -> testUserRegistration(johnDoeWrongEmail1, 401, "Wrong user!"),
+              () -> testUserRegistration(maxMustermannWrongPassword, 401, "Wrong password!"),
+              () -> testUserRegistration(captainNemoWrongUser, 401, "Wrong user"),
+              () -> testGetApi(paymentApi, 401, "This api only for authenticated user"),
+
+              // Test persistence
+              () -> restartApplication(),
+              () -> testUserRegistration(johnDoeCorrectUser, 200, "User must login, after restarting!" +
+                      " Check persistence."),
+      };
+    }
+  learner_created: false
+- name: src/account/domain/User.java
+  visible: true
+  text: |
+    package account.domain;
+
+    import com.fasterxml.jackson.annotation.JsonIgnore;
+    import com.fasterxml.jackson.annotation.JsonProperty;
+
+    import javax.persistence.*;
+    import javax.validation.constraints.Email;
+    import javax.validation.constraints.NotEmpty;
+    import javax.validation.constraints.NotNull;
+    import javax.validation.constraints.Pattern;
+
+    @Entity
+    @Table(name = "users")
+    public class User {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(name = "id")
+        @JsonIgnore
+        private long id;
+        @NotEmpty(message = "Name is required")
+        @Column(name = "name", nullable = false)
+        private String name;
+
+        @NotEmpty(message = "Last name is required")
+        @Column(name = "last_name", nullable = false)
+        private String lastname;
+
+        @Email(regexp = ".*@acme\\.com",message = "Email must end with @acme.com", flags = Pattern.Flag.CASE_INSENSITIVE)
+        @NotNull(message = "Email is required")
+    //    @Pattern(regexp = ".*@acme\\.com", message = "Email must end with @acme.com")
+        @Column(name = "email", nullable = false)
+        private String email;
+
+        // @Size (min = 8, message = "Password must be at least 8 characters")
+        @NotEmpty(message = "Password is required")
+        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+        @Column(name = "password", nullable = false)
+        private String password;
+
+
+        protected User() {
+
+        }
+
+        public User(String name, String lastName, String email, String password) {
+            this.name = name;
+            this.lastname = lastName;
+            this.email = email;
+            this.password = password;
+        }
+
+        public long getId() {
+            return id;
+        }
+
+        public void setId(long id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getLastname() {
+            return lastname;
+        }
+
+        public void setLastname(String lastName) {
+            this.lastname = lastName;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+    }
+  learner_created: true
+- name: src/account/errors/UserException.java
+  visible: true
+  text: |
+    package account.errors;
+
+    import org.springframework.http.HttpStatus;
+
+    public class UserException extends RuntimeException {
+        private String error;
+        private HttpStatus status;
+
+        public UserException(String error) {
+            this.error = error;
+            this.status = HttpStatus.BAD_REQUEST;
+        }
+
+        public UserException(String error, HttpStatus status) {
+            this.error = error;
+            this.status = status;
+        }
+
+        public HttpStatus getStatus() {
+            return status;
+        }
+
+        public void setStatus(HttpStatus status) {
+            this.status = status;
+        }
+
+        public void setError(String error) {
+            this.error = error;
+        }
+
+        public String getError() {
+            return error;
+        }
+    }
+  learner_created: true
+- name: src/account/errors/ErrorResponse.java
+  visible: true
+  text: |+
+    package account.errors;
+
+    import com.fasterxml.jackson.annotation.JsonIgnore;
+
+    public class ErrorResponse {
+        private String timestamp;
+
+        private int status;
+
+        private String error;
+
+        private String path;
+
+        public ErrorResponse(String timestamp, int status, String error, String path) {
+            this.timestamp = timestamp;
+            this.status = status;
+            this.error = error;
+            this.path = path;
+        }
+
+
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
+        }
+
+        public String getError() {
+            return error;
+        }
+
+        public void setError(String error) {
+            this.error = error;
+        }
+
+        public String getTimestamp() {
+            return timestamp;
+        }
+
+        public void setTimestamp(String timestamp) {
+            this.timestamp = timestamp;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public void setPath(String path) {
+            this.path = path;
+        }
+
+    }
+
+  learner_created: true
+- name: src/resources/schema.sql
+  visible: true
+  text: |-
+    CREATE TABLE users (
+                           id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                           name VARCHAR(255) NOT NULL,
+                           lastname VARCHAR(255) NOT NULL,
+                           email VARCHAR(255) NOT NULL,
+                           password VARCHAR(255) NOT NULL
+    );
+  learner_created: true
+- name: src/account/errors/CustomControllerAdvice.java
+  visible: true
+  text: |
+    package account.errors;
+
+    import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
+    import org.springframework.dao.DataIntegrityViolationException;
+    import org.springframework.http.HttpStatus;
+    import org.springframework.http.ResponseEntity;
+    import org.springframework.web.bind.annotation.ExceptionHandler;
+    import org.springframework.web.bind.annotation.ResponseStatus;
+    import org.springframework.web.bind.annotation.RestControllerAdvice;
+    import org.springframework.web.context.request.WebRequest;
+
+    import javax.servlet.http.HttpServletRequest;
+    import javax.validation.ConstraintViolationException;
+    import java.time.LocalDateTime;
+
+    @RestControllerAdvice
+    public class CustomControllerAdvice {
+
+        int status;
+        String timestamp;
+        String path;
+
+
+
+        @ResponseStatus(HttpStatus.BAD_REQUEST)
+        @ExceptionHandler(RuntimeException.class)
+        public ResponseEntity<ErrorResponse> handleUserExceptions(
+                UserException e, HttpServletRequest request) {
+
+            status = e.getStatus().value();
+            timestamp = LocalDateTime.now().toString();
+            path = request.getServletPath();
+
+            return new ResponseEntity<>(
+                    new ErrorResponse(
+                            timestamp,
+                            status,
+                            e.getError(),
+                            path)
+                    , e.getStatus()
+                    );
+        }
+
+        @ExceptionHandler(Exception.class) // exception handled
+        public ResponseEntity<ErrorResponse> handleExceptions(
+                UserException e, HttpServletRequest request) {
+            status = e.getStatus().value();
+            timestamp = LocalDateTime.now().toString();
+            path = request.getContextPath();
+            return new ResponseEntity<>(
+                    new ErrorResponse(
+                            timestamp,
+                            status,
+                            e.getError(),
+                            path)
+                    , e.getStatus()
+            );
+        }
+    }
+  learner_created: true
+- name: src/account/repositories/UserRepository.java
+  visible: true
+  text: |
+    package account.repositories;
+
+    import account.domain.User;
+
+    import io.swagger.v3.oas.annotations.tags.Tag;
+
+    import org.springframework.data.jpa.repository.JpaRepository;
+    import org.springframework.data.repository.query.Param;
+    import org.springframework.data.rest.core.annotation.RestResource;
+    import org.springframework.stereotype.Repository;
+
+    import java.util.List;
+    import java.util.Optional;
+
+    @Repository
+    @Tag(name = "User", description = "User API")
+    public interface UserRepository extends JpaRepository<User, Long> {
+
+        /**
+         *
+         * Find all Users from the database
+         *
+         */
+        List<User> findAll();
+
+        /**
+         * Find a user by id
+         *
+         * @param id the id of the user
+         * @return the user
+         */
+
+        Optional<User> findById(@Param("id") long id);
+
+        /**
+         * Find all the users by name containing the given string
+         *
+         * @param name the name of the user
+         * @return the list of users
+         */
+        List<User> findByNameContaining(@Param("name") String name);
+
+        /**
+         * Save a user
+         *
+         * @param User the user to save
+         * @return the saved user
+         */
+
+        @Override
+    //     @RestResource(exported = false)
+        <S extends User> S save(S User);
+
+        @Override
+        @RestResource(exported = false)
+        <S extends User> List<S> saveAll(Iterable<S> users);
+
+        // @RestResource(exported = false)
+        void deleteById(long id);
+
+        @Override
+    //    @RestResource(exported = false)
+        void delete(User user);
+
+        @Override
+        @RestResource(exported = false)
+        void deleteAll(Iterable<? extends User> users);
+
+        Optional<User> findByEmail(String email);
+    }
+  learner_created: true
+- name: src/account/controllers/UserController.java
+  visible: true
+  text: |
+    package account.controllers;
+
+
+    import account.domain.User;
+    import account.services.UserServiceImpl;
+    import io.swagger.v3.oas.annotations.Operation;
+    import io.swagger.v3.oas.annotations.responses.ApiResponse;
+    import io.swagger.v3.oas.annotations.tags.Tag;
+    import org.springframework.web.bind.annotation.*;
+
+    import java.util.List;
+
+    @CrossOrigin(origins = "http://localhost:28852")
+    @RestController
+    @RequestMapping("/api")
+    @Tag(name = "User", description = "User API")
+    public class UserController {
+
+        private final UserServiceImpl userService;
+
+        public UserController(UserServiceImpl UserService) {
+            this.userService = UserService;
+        }
+
+        @Operation(summary = "Get all Users", description = "Get all Users, available or not", tags = {
+                "User" })
+        @ApiResponse(responseCode = "200", description = "OK")
+        @GetMapping()
+        public List<User> getAllUsers() {
+            return userService.findAllUsers();
+        }
+
+        @Operation(summary = "Get a User by id", description = "Get a User by id", tags = {
+                "User" })
+        @ApiResponse(responseCode = "200", description = "OK")
+        @GetMapping("/{id}")
+        public User getUserById(@PathVariable Long id) {
+            return userService.findUserById(id);
+        }
+
+        @Operation(summary = "Get a User by name", description = "Get a User by name", tags = {
+                "User" })
+        @ApiResponse(responseCode = "200", description = "OK")
+        @GetMapping("/name/{name}")
+        public List<User> getUserByName(@PathVariable String name) {
+            return userService.findUsersByName(name);
+        }
+
+        @Operation(summary = "Create a User", description = "Create a User", tags = {
+                "User" })
+        @ApiResponse(responseCode = "200", description = "OK")
+        @PostMapping("/auth/signup")
+        public User createUser(@RequestBody User User) {
+            return userService.saveUser(User);
+        }
+
+        @Operation(summary = "Update a User", description = "Update a User", tags = {
+                "User" })
+        @ApiResponse(responseCode = "204", description = "OK")
+        @PutMapping("/{id}")
+        public User updateUser(@PathVariable Long id, @RequestBody User User) {
+            return userService.updateUser(id, User);
+        }
+
+        @Operation(summary = "Delete a User", description = "Delete a User by id", tags = {
+                "User" })
+        @ApiResponse(responseCode = "200", description = "No content")
+        @DeleteMapping("/{id}")
+        public void deleteUser(@PathVariable Long id) {
+            userService.deleteUserById(id);
+        }
+
+        @Operation(summary = "Delete a User", description = "Delete a User", tags = {
+                "User" })
+        @ApiResponse(responseCode = "204", description = "No content")
+        @DeleteMapping()
+        public void deleteUser(@RequestBody User User) {
+            userService.deleteUser(User);
+        }
+
+    }
+  learner_created: true
+- name: src/account/services/UserService.java
+  visible: true
+  text: |
+    package account.services;
+
+    import account.domain.User;
+
+    import java.util.List;
+
+    public interface UserService {
+        List<User> findAllUsers();
+
+        User findUserById(Long id);
+
+        User findUserByEmail(String email);
+
+        List<User> findUsersByName(String name);
+
+        User saveUser(User User);
+
+        User updateUser(Long id, User User);
+
+        void deleteUserById(Long id);
+
+        void deleteUser(User User);
+    }
+  learner_created: true
+- name: src/account/services/UserServiceImpl.java
+  visible: true
+  text: |
+    package account.services;
+
+    import account.domain.User;
+    import account.errors.UserException;
+    import account.repositories.UserRepository;
+    import org.springframework.http.HttpStatus;
+    import org.springframework.stereotype.Service;
+
+    import javax.validation.ConstraintViolation;
+    import javax.validation.Validator;
+    import java.util.List;
+    import java.util.Set;
+
+    @Service
+    public class UserServiceImpl implements UserService{
+
+
+        final private Validator validator;
+
+        final private UserRepository userRepository;
+
+        /**
+         * Construct UserService
+         *
+         * @param validator         Validator that enforce entities' constraints
+         * @param userRepository    User Repository
+         */
+        public UserServiceImpl(Validator validator, UserRepository userRepository) {
+            this.validator = validator;
+            this.userRepository = userRepository;
+
+        }
+
+        /**
+         * Get all Users from the database
+         *
+         * @return List of Users
+         *
+         */
+        @Override
+        public List<User> findAllUsers() {
+            return userRepository.findAll();
+        }
+
+        /**
+         * Find a user by id
+         *
+         * @param id the id of the User
+         * @return the User
+         * @throws UserException if the User is not found
+         *
+         */
+        @Override
+        public User findUserById(Long id) {
+            return userRepository.findById(id).orElseThrow(() -> new UserException("User not found"));
+        }
+
+        @Override
+        public User findUserByEmail(String email) {
+            return userRepository.findByEmail(email).orElseThrow(() -> new UserException("User not found"));
+        }
+
+        /**
+         * Find all the users by name containing the given string
+         *
+         * @param name the name of the user
+         * @return the list of users
+         *
+         */
+        @Override
+        public List<User> findUsersByName(String name) {
+            return userRepository.findByNameContaining(name);
+        }
+
+        /**
+         * Save a User to the database
+         *
+         * @param user     the name of the User
+         * @return User
+         *
+         */
+
+        @Override
+        public User saveUser(User user) {
+    //        boolean alreadyRegisteredEmail = userRepository.findByEmail(user.getEmail()).isPresent();
+            Set<ConstraintViolation<User>> violations = validator.validate(user);
+            if (!violations.isEmpty()) {
+                throw new UserException("Bad Request", HttpStatus.BAD_REQUEST);
+            }
+    //        if (!user.getEmail().endsWith("@acme.com")) {
+    //            throw new UserException("User email must end with @acme.com", HttpStatus.BAD_REQUEST);
+    //        }
+
+
+            return userRepository.save(user);
+        }
+
+        /**
+         * Update a User
+         *
+         * @param id        the id of the User     *
+         * @param user user     *
+         * @return User
+         */
+        @Override
+        public User updateUser(Long id, User user) {
+            User _user = userRepository.findById(id)
+                    .orElseThrow(() -> new UserException("User not found"));
+
+            _user.setName(user.getName());
+            _user.setLastname(user.getLastname());
+            _user.setEmail(user.getEmail());
+            _user.setPassword(user.getPassword());
+
+            return userRepository.save(_user);
+        }
+
+        /**
+         * Delete a User
+         *
+         * @param id the id of the User
+         *
+         */
+        @Override
+        public void deleteUserById(Long id) {
+            userRepository.deleteById(id);
+        }
+
+        /**
+         * Delete a User
+         *
+         * @param user user
+         *
+         */
+        @Override
+        public void deleteUser(User user) {
+            userRepository.delete(user);
+        }
+
+    }
+  learner_created: true
+feedback_link: https://hyperskill.org/projects/217/stages/1087/implement#comment
+status: Unchecked
+record: -1

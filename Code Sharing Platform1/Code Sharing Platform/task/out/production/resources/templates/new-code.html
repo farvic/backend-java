@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create</title>
+  <link rel="stylesheet" href="/static/styles/github-dark-dimmed.min.css">
+  <link rel="stylesheet" href="/styles/default.css">
+
+</head>
+<body>
+<header id="header">
+  <div id="logo">
+    <a href="/">Code Sharing Platform</a>
+  </div>
+  <div id="menu">
+    <a href="/code/new">New</a>
+    <a href="/code/latest">Latest</a>
+  </div>
+</header>
+<form>
+  <label for="code_snippet"></label><textarea id="code_snippet"></textarea>
+  <label for="time">Time restriction:</label>
+  <input type="text" id="time"><br>
+  <label for="views">Views restriction:</label>
+  <input type="text" id="views"><br>
+  <button type="submit" id="send_snippet" onclick="send()">Submit</button>
+</form>
+
+<div class="footer">
+  <a href="https://github.com/farvic"><i class="fa fa-github"></i></a>
+  <a href="https://www.linkedin.com/in/victorfa/"><i class="fa fa-linkedin"></i></a>
+</div>
+<script type="text/javascript" src="/main.js"></script>
+<script type="text/javascript" src="/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- Add font awesome icons library -->
+<script src="https://kit.fontawesome.com/your-font-awesome-kit-id.js" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <link rel="stylesheet" href="/styles/github-dark-dimmed.min.css" />
+        <link rel="stylesheet" href="/styles/default.css" />
+        <meta charset="ISO-8859-1" />
+        <title th:text="${title}"></title>
+        <link rel="stylesheet"
+              href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/styles/default.min.css">
+        <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </head>
+    <body>
+    <header id="header">
+        <div id="logo">
+            <a href="/">Code Sharing Platform</a>
+        </div>
+        <div id="menu">
+            <a href="/code/new">New</a>
+            <a href="/code/latest">Latest</a>
+        </div>
+    </header>
+    <div id="content" th:each="code: ${codes}">
+      <span
+              id="load_date"
+              th:text="${#temporals.format(code.getDate(), 'yyyy/MM/dd HH:mm:ss.SSSSSS')}"
+      ></span>
+        <th:block th:if="${code.isViewRestricted()}">
+            <p>
+                <span id="views_restriction" th:text="${code.getViews()}"></span> more
+                views allowed
+            </p>
+        </th:block>
+        <th:block th:if="${code.isTimeRestricted()}">
+            <p>
+                The code will be available for
+                <span id="time_restriction" th:text="${code.getTime()}"></span>
+                seconds
+            </p>
+        </th:block>
+        <pre id="code_snippet">
+                    <code th:text="${code.getCode()}"></code>
+                </pre>
+    </div>
+        <footer class="footer">
+            <a href="https://github.com/farvic"><i class="fa fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/victorfa/"><i class="fa fa-linkedin"></i></a>
+        </footer>
+<!--        <script type="text/javascript" src="/highlight.js"></script>-->
+<!--        <script type="text/javascript" src="/highlight.min.js"></script>-->
+<!--        <script>-->
+<!--            hljs.highlightAll();-->
+<!--        </script>-->
+    </body>
+</html>
