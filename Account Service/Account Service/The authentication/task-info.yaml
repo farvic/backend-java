@@ -560,17 +560,6 @@ files:
     }
 
   learner_created: true
-- name: src/resources/schema.sql
-  visible: true
-  text: |-
-    CREATE TABLE users (
-                           id BIGINT AUTO_INCREMENT PRIMARY KEY,
-                           name VARCHAR(255) NOT NULL,
-                           lastname VARCHAR(255) NOT NULL,
-                           email VARCHAR(255) NOT NULL,
-                           password VARCHAR(255) NOT NULL
-    );
-  learner_created: true
 - name: src/account/errors/CustomControllerAdvice.java
   visible: true
   text: |
@@ -964,6 +953,72 @@ files:
 
     }
   learner_created: true
-feedback_link: https://hyperskill.org/projects/217/stages/1087/implement#comment
-status: Unchecked
+- name: src/account/config/WebSecurityConfig.java
+  visible: true
+  learner_created: true
+- name: src/account/config/RestAuthenticationEntryPoint.java
+  visible: true
+  learner_created: true
+- name: src/account/config/AccountServiceUserDetailsService.java
+  visible: true
+  learner_created: true
+- name: src/account/config/UserDetailsImpl.java
+  visible: true
+  learner_created: true
+- name: src/resources/data.sql
+  visible: true
+  learner_created: true
+- name: src/account/domain/Role.java
+  visible: true
+  learner_created: true
+- name: src/resources/schema.sql
+  visible: true
+  text: |-
+    CREATE TABLE users (
+                           id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                           name VARCHAR(255) NOT NULL,
+                           lastname VARCHAR(255) NOT NULL,
+                           email VARCHAR(255) NOT NULL,
+                           password VARCHAR(255) NOT NULL
+    );
+  learner_created: true
+- name: src/account/domain/Payment.java
+  visible: true
+  learner_created: true
+- name: src/account/repositories/PaymentRepository.java
+  visible: true
+  learner_created: true
+- name: src/account/services/PaymentService.java
+  visible: true
+  learner_created: true
+- name: src/account/services/PaymentServiceImpl.java
+  visible: true
+  learner_created: true
+- name: src/account/services/UserDetailsServiceImpl.java
+  visible: true
+  learner_created: true
+- name: src/account/config/BCryptEncoderConfig.java
+  visible: true
+  learner_created: true
+- name: src/account/errors/UserExistsException.java
+  visible: true
+  learner_created: true
+feedback_link: https://hyperskill.org/learn/step/16602#comment
+status: Failed
+feedback:
+  message: |-
+    Wrong answer in test #4
+
+    POST /api/auth/signup should respond with status code 400, responded: 200
+    User must be unique (ignorecase)!
+    Response body:
+    {
+      &quot;id&quot; : 2,
+      &quot;name&quot; : &quot;John&quot;,
+      &quot;lastname&quot; : &quot;Doe&quot;,
+      &quot;email&quot; : &quot;johndoe@acme.com&quot;
+    }
+    Request body:
+    {&quot;name&quot;:&quot;John&quot;,&quot;lastname&quot;:&quot;Doe&quot;,&quot;email&quot;:&quot;johndoe@acme.com&quot;,&quot;password&quot;:&quot;secret&quot;}
+  time: "Tue, 21 Feb 2023 08:05:12 UTC"
 record: -1

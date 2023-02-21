@@ -8,14 +8,14 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 @Entity
-@Table(name = "users")
+@Table(name = "security_user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @JsonIgnore
     private long id;
     @NotEmpty(message = "Name is required")
     @Column(name = "name", nullable = false)
@@ -25,10 +25,10 @@ public class User {
     @Column(name = "last_name", nullable = false)
     private String lastname;
 
-    @Email(regexp = ".*@acme\\.com",message = "Email must end with @acme.com", flags = Pattern.Flag.CASE_INSENSITIVE)
+//    @Email(regexp = ".*@acme\\.com",message = "Email must end with @acme.com", flags = Pattern.Flag.CASE_INSENSITIVE)
     @NotNull(message = "Email is required")
-//    @Pattern(regexp = ".*@acme\\.com", message = "Email must end with @acme.com")
-    @Column(name = "email", nullable = false)
+    @Pattern(regexp = ".*@acme\\.com", message = "Email must end with @acme.com", flags = Pattern.Flag.CASE_INSENSITIVE)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     // @Size (min = 8, message = "Password must be at least 8 characters")
@@ -37,7 +37,10 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-
+    @JsonIgnore
+    @Column(name = "role", nullable = false)
+    @ManyToMany(fetch = FetchType.EAGER)
+    List<Role> roles;
     protected User() {
 
     }
@@ -47,6 +50,14 @@ public class User {
         this.lastname = lastName;
         this.email = email;
         this.password = password;
+    }
+
+    public User(String name, String lastName, String email, String password, List<Role> roles) {
+        this.name = name;
+        this.lastname = lastName;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
     }
 
     public long getId() {
@@ -87,5 +98,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }

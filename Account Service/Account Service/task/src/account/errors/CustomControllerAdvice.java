@@ -19,7 +19,50 @@ public class CustomControllerAdvice {
     int status;
     String timestamp;
     String path;
+    String message;
 
+
+//    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+//    @ExceptionHandler(RuntimeException.class)
+//    public ResponseEntity<ErrorResponse> handleBadCredentialsException(
+//            UserExistsException e, HttpServletRequest request) {
+//
+//        status = e.getStatus().value();
+//        timestamp = LocalDateTime.now().toString();
+//        message = e.getMessage();
+//        path = request.getServletPath();
+//
+//        return new ResponseEntity<>(
+//                new ErrorResponse(
+//                        timestamp,
+//                        status,
+//                        e.getError(),
+//                        "",
+//                        path)
+//                , e.getStatus()
+//        );
+//    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(UserExistsException.class)
+    public ResponseEntity<ErrorResponse> handleUserExistsException(
+            UserExistsException e, HttpServletRequest request) {
+
+        status = e.getStatus().value();
+        timestamp = LocalDateTime.now().toString();
+        message = e.getMessage();
+        path = request.getServletPath();
+
+        return new ResponseEntity<>(
+                new ErrorResponse(
+                        timestamp,
+                        status,
+                        e.getError(),
+                        message,
+                        path)
+                , e.getStatus()
+        );
+    }
 
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

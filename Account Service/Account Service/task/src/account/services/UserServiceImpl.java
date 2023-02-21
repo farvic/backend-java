@@ -2,8 +2,11 @@ package account.services;
 
 import account.domain.User;
 import account.errors.UserException;
+import account.errors.UserExistsException;
 import account.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
@@ -14,10 +17,14 @@ import java.util.Set;
 @Service
 public class UserServiceImpl implements UserService{
 
+    @Autowired
+    private Validator validator;
 
-    final private Validator validator;
+    @Autowired
+    private UserRepository userRepository;
 
-    final private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     /**
      * Construct UserService
@@ -25,11 +32,7 @@ public class UserServiceImpl implements UserService{
      * @param validator         Validator that enforce entities' constraints
      * @param userRepository    User Repository
      */
-    public UserServiceImpl(Validator validator, UserRepository userRepository) {
-        this.validator = validator;
-        this.userRepository = userRepository;
 
-    }
 
     /**
      * Get all Users from the database
@@ -80,16 +83,21 @@ public class UserServiceImpl implements UserService{
      *
      */
 
+    // TODO: Should create an UserDto
+
     @Override
     public User saveUser(User user) {
-//        boolean alreadyRegisteredEmail = userRepository.findByEmail(user.getEmail()).isPresent();
+        // TODO: should check if there's a query for searching strings without caring about case
+        boolean alreadyRegisteredEmail = userRepository.findByEmail(user.getEmail().toLowerCase()).isPresent();
         Set<ConstraintViolation<User>> violations = validator.validate(user);
-        if (!violations.isEmpty()) {
-            throw new UserException("Bad Request", HttpStatus.BAD_REQUEST);
+        if (!violations.isEmpty() || alreadyRegisteredEmail) {
+            throw new UserExistsException("Bad Request", HttpStatus.BAD_REQUEST, "User exist!");
         }
 //        if (!user.getEmail().endsWith("@acme.com")) {
 //            throw new UserException("User email must end with @acme.com", HttpStatus.BAD_REQUEST);
 //        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
 
 
         return userRepository.save(user);

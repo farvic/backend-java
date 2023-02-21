@@ -5,31 +5,86 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5a01a35-3eea-4b14-aba4-a62b2b9e8607" name="Changes" comment="Refactoring and unit tests.&#10;&#10;Now the services have an interface and implementation.&#10;The unit tests for entities, services and controllers were implemented.&#10;&#10;More infos soon.">
-      <change afterPath="$PROJECT_DIR$/../Cinema Room REST Service/.idea/modules/Cinema Room REST Service/task/bin/default/bin/default/bin/default/build/tmp/bin/Cinema_Room_REST_Service.Cinema_Room_REST_Service-task-bin-default-bin-default-bin-default-build-tmp-bin.main.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Cinema Room REST Service/.idea/modules/Cinema Room REST Service/task/bin/default/bin/default/bin/default/build/tmp/bin/Cinema_Room_REST_Service.Cinema_Room_REST_Service-task-bin-default-bin-default-bin-default-build-tmp-bin.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_boot_spring_boot_starter_security_2_5_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_security_spring_security_config_5_5_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_security_spring_security_core_5_5_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_security_spring_security_crypto_5_5_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_security_spring_security_web_5_5_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/config/AccountServiceUserDetailsService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/config/BCryptEncoderConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/config/RestAuthenticationEntryPoint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/config/UserDetailsImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/config/WebSecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/domain/Payment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/domain/Role.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/errors/UserExistsException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/repositories/PaymentRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/services/PaymentService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/services/PaymentServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/services/UserDetailsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.3.3/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.3/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.3.3/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.3/checksums/md5-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.3.3/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.3/checksums/sha1-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.3.3/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.3/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.3.3/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.3/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.3.3/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.3/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.3.3/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.3/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.3.3/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.3/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/Account Service/task/Account_Service.Account_Service-task.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/Account_Service.Account_Service-task.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/Account Service/task/Account_Service.Account_Service-task.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/Account_Service.Account_Service-task.test.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Cinema Room REST Service/.gradle/7.3.3/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../Cinema Room REST Service/.gradle/7.3.3/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Cinema Room REST Service/.gradle/7.3.3/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../Cinema Room REST Service/.gradle/7.3.3/checksums/sha1-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Cinema Room REST Service/.gradle/7.3.3/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../Cinema Room REST Service/.gradle/7.3.3/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Cinema Room REST Service/.gradle/7.3.3/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../Cinema Room REST Service/.gradle/7.3.3/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Cinema Room REST Service/.gradle/7.3.3/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../Cinema Room REST Service/.gradle/7.3.3/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Cinema Room REST Service/.gradle/7.3.3/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../Cinema Room REST Service/.gradle/7.3.3/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Cinema Room REST Service/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../Cinema Room REST Service/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Cinema Room REST Service/Cinema Room REST Service/The statistics/task-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../Cinema Room REST Service/Cinema Room REST Service/The statistics/task-info.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Cinema Room REST Service/course-remote-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../Cinema Room REST Service/course-remote-info.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/POST updates/task-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/POST updates/task-info.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/Show the code/task-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/Show the code/task-info.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/Snippets feed/task-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/Snippets feed/task-info.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/Super secret snippets/task-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/Super secret snippets/task-info.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/Work with the database/task-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/Work with the database/task-info.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/lesson-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/lesson-info.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/task/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/task/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/task/out/production/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/task/out/production/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/task/src/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/task/src/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/task/test/CodeSharingPlatformTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Code Sharing Platform/Code Sharing Platform/task/test/CodeSharingPlatformTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Code Sharing Platform/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../Code Sharing Platform/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Code Sharing Platform/course-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../Code Sharing Platform/course-info.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Code Sharing Platform/course-remote-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../Code Sharing Platform/course-remote-info.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/Attention to business/task-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/Attention to business/task-info.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/Create the service structure (API)/task-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/Create the service structure (API)/task-info.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/Logging events/task-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/Logging events/task-info.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/Securing connection/task-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/Securing connection/task-info.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/Security first/task-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/Security first/task-info.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/The authentication/task-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/The authentication/task-info.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/The authorization/task-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/The authorization/task-info.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/service_db.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/service_db.mv.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/classes/java/main/account/controllers/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/classes/java/main/account/controllers/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/classes/java/main/account/domain/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/classes/java/main/account/domain/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/classes/java/main/account/errors/CustomControllerAdvice.class" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/classes/java/main/account/errors/CustomControllerAdvice.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/classes/java/main/account/errors/ErrorResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/classes/java/main/account/errors/ErrorResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/classes/java/main/account/errors/UserException.class" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/classes/java/main/account/errors/UserException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/classes/java/main/account/services/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/classes/java/main/account/services/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/classes/java/test/AccountServiceTest$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/classes/java/test/AccountServiceTest$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/classes/java/test/AccountServiceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/classes/java/test/AccountServiceTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/classes/java/test/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/classes/java/test/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/reports/tests/test/classes/AccountServiceTest.html" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/reports/tests/test/classes/AccountServiceTest.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/reports/tests/test/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/reports/tests/test/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/reports/tests/test/packages/default-package.html" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/reports/tests/test/packages/default-package.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/resources/main/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/resources/main/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/resources/main/schema.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/test-results/test/TEST-AccountServiceTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/test-results/test/TEST-AccountServiceTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/test-results/test/binary/output.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/test-results/test/binary/output.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/test-results/test/binary/output.bin.idx" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/test-results/test/binary/output.bin.idx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/test-results/test/binary/results.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/test-results/test/binary/results.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/tmp/compileTestJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/tmp/compileTestJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/out/production/classes/account/controllers/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/out/production/classes/account/controllers/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/out/production/classes/account/domain/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/out/production/classes/account/domain/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/out/production/classes/account/errors/CustomControllerAdvice.class" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/out/production/classes/account/errors/CustomControllerAdvice.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/out/production/classes/account/errors/ErrorResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/out/production/classes/account/errors/ErrorResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/out/production/classes/account/errors/UserException.class" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/out/production/classes/account/errors/UserException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/out/production/classes/account/services/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/out/production/classes/account/services/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/out/production/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/out/production/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/out/production/resources/schema.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/controllers/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/domain/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/domain/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/errors/CustomControllerAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/errors/CustomControllerAdvice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/errors/ErrorResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/errors/ErrorResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/errors/UserException.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/errors/UserException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/repositories/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/services/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/services/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/src/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/src/resources/schema.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/course-remote-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/course-remote-info.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +99,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Enum" />
         <option value="Interface" />
         <option value="Class" />
       </list>
@@ -74,7 +130,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/java/hyperskill/Code Sharing Platform1",
+    "last_opened_file_path": "D:/java/backend-java/Account Service",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -83,9 +139,17 @@
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.55517244",
-    "settings.editor.selected.configurable": "Docker",
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
     "spring.configuration.checksum": "ff7a17db6e16f35c5b68c1e4c08dce54",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "h2"
+    ],
+    "com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect": [
+      "H2"
+    ]
   }
 }]]></component>
   <component name="RunManager">
@@ -108,6 +172,7 @@
       <workItem from="1676872830097" duration="293000" />
       <workItem from="1676912205925" duration="4250000" />
       <workItem from="1676918842201" duration="13811000" />
+      <workItem from="1676939352478" duration="17681000" />
     </task>
     <task id="LOCAL-00001" summary="Refactoring and unit tests.&#10;&#10;Now the services have an interface and implementation.&#10;The unit tests for entities, services and controllers were implemented.&#10;&#10;More infos soon.">
       <created>1676938521579</created>

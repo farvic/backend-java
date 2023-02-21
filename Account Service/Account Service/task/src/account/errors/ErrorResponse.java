@@ -11,10 +11,20 @@ public class ErrorResponse {
 
     private String path;
 
+    private String message;
+
     public ErrorResponse(String timestamp, int status, String error, String path) {
         this.timestamp = timestamp;
         this.status = status;
         this.error = error;
+        this.path = path;
+    }
+
+    public ErrorResponse(String timestamp, int status, String error, String message, String path) {
+        this.timestamp = timestamp;
+        this.status = status;
+        this.error = error;
+        this.message = message;
         this.path = path;
     }
 
@@ -51,5 +61,12 @@ public class ErrorResponse {
         this.path = path;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }
 

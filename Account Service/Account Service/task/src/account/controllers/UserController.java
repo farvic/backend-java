@@ -6,6 +6,9 @@ import account.services.UserServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -61,7 +64,6 @@ public class UserController {
     public User updateUser(@PathVariable Long id, @RequestBody User User) {
         return userService.updateUser(id, User);
     }
-
     @Operation(summary = "Delete a User", description = "Delete a User by id", tags = {
             "User" })
     @ApiResponse(responseCode = "200", description = "No content")
@@ -74,8 +76,23 @@ public class UserController {
             "User" })
     @ApiResponse(responseCode = "204", description = "No content")
     @DeleteMapping()
-    public void deleteUser(@RequestBody User User) {
+
+    public ResponseEntity<?> deleteUser(@RequestBody User User) {
         userService.deleteUser(User);
+        return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Get a User by email", description = "Get a User by email", tags = {
+            "User" })
+    @ApiResponse(responseCode = "200", description = "OK")
+    @GetMapping("/email/{email}")
+    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+        return ResponseEntity.ok(userService.findUserByEmail(email));
+    }
+
+    @GetMapping("/empl/payment")
+    public ResponseEntity<User> getPayment(@AuthenticationPrincipal UserDetails userDetails) {
+        return ResponseEntity.ok(userService.findUserByEmail(userDetails.getUsername()));
     }
 
 }

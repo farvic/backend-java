@@ -2,9 +2,11 @@ package account.errors;
 
 import org.springframework.http.HttpStatus;
 
+
 public class UserException extends RuntimeException {
     private String error;
     private HttpStatus status;
+
 
     public UserException(String error) {
         this.error = error;
@@ -31,4 +33,5 @@ public class UserException extends RuntimeException {
     public String getError() {
         return error;
     }
+
 }
