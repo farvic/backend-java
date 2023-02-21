@@ -6,11 +6,13 @@ import account.services.UserServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:28852")
@@ -21,8 +23,8 @@ public class UserController {
 
     private final UserServiceImpl userService;
 
-    public UserController(UserServiceImpl UserService) {
-        this.userService = UserService;
+    public UserController(UserServiceImpl userService) {
+        this.userService = userService;
     }
 
     @Operation(summary = "Get all Users", description = "Get all Users, available or not", tags = {
@@ -91,7 +93,10 @@ public class UserController {
     }
 
     @GetMapping("/empl/payment")
-    public ResponseEntity<User> getPayment(@AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<User> getPayment(@Valid @AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
         return ResponseEntity.ok(userService.findUserByEmail(userDetails.getUsername()));
     }
 

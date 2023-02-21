@@ -965,22 +965,8 @@ files:
 - name: src/account/config/UserDetailsImpl.java
   visible: true
   learner_created: true
-- name: src/resources/data.sql
-  visible: true
-  learner_created: true
 - name: src/account/domain/Role.java
   visible: true
-  learner_created: true
-- name: src/resources/schema.sql
-  visible: true
-  text: |-
-    CREATE TABLE users (
-                           id BIGINT AUTO_INCREMENT PRIMARY KEY,
-                           name VARCHAR(255) NOT NULL,
-                           lastname VARCHAR(255) NOT NULL,
-                           email VARCHAR(255) NOT NULL,
-                           password VARCHAR(255) NOT NULL
-    );
   learner_created: true
 - name: src/account/domain/Payment.java
   visible: true
@@ -1004,21 +990,8 @@ files:
   visible: true
   learner_created: true
 feedback_link: https://hyperskill.org/learn/step/16602#comment
-status: Failed
+status: Solved
 feedback:
-  message: |-
-    Wrong answer in test #4
-
-    POST /api/auth/signup should respond with status code 400, responded: 200
-    User must be unique (ignorecase)!
-    Response body:
-    {
-      &quot;id&quot; : 2,
-      &quot;name&quot; : &quot;John&quot;,
-      &quot;lastname&quot; : &quot;Doe&quot;,
-      &quot;email&quot; : &quot;johndoe@acme.com&quot;
-    }
-    Request body:
-    {&quot;name&quot;:&quot;John&quot;,&quot;lastname&quot;:&quot;Doe&quot;,&quot;email&quot;:&quot;johndoe@acme.com&quot;,&quot;password&quot;:&quot;secret&quot;}
-  time: "Tue, 21 Feb 2023 08:05:12 UTC"
+  message: Congratulations!
+  time: "Tue, 21 Feb 2023 19:12:09 UTC"
 record: -1

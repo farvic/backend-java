@@ -97,7 +97,7 @@ public class UserServiceImpl implements UserService{
 //            throw new UserException("User email must end with @acme.com", HttpStatus.BAD_REQUEST);
 //        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-
+        user.setEmail(user.getEmail().toLowerCase());
 
 
         return userRepository.save(user);
