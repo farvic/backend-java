@@ -1,9 +1,9 @@
 package account.errors;
 
-import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
-import org.springframework.dao.DataIntegrityViolationException;
+import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -42,6 +42,48 @@ public class CustomControllerAdvice {
 //                , e.getStatus()
 //        );
 //    }
+
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MismatchedInputException.class)
+    public ResponseEntity<ErrorResponse> mismatchedInputException(
+            MismatchedInputException e, HttpServletRequest request) {
+
+        status = HttpStatus.BAD_REQUEST.value();
+        timestamp = LocalDateTime.now().toString();
+        message = e.getCause().getMessage();
+        path = request.getServletPath();
+
+        return new ResponseEntity<>(
+                new ErrorResponse(
+                        timestamp,
+                        status,
+                        message,
+                        path)
+                , HttpStatus.BAD_REQUEST
+        );
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorResponse> methodNotValidException(
+            MethodArgumentNotValidException e, HttpServletRequest request) {
+
+        status = HttpStatus.BAD_REQUEST.value();
+        timestamp = LocalDateTime.now().toString();
+        message = e.getFieldError().getDefaultMessage();
+        path = request.getServletPath();
+
+        return new ResponseEntity<>(
+                new ErrorResponse(
+                        timestamp,
+                        status,
+                        "Bad Request",
+                        message,
+                        path)
+                , HttpStatus.BAD_REQUEST
+        );
+    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(UserExistsException.class)

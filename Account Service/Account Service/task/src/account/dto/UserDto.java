@@ -1,69 +1,50 @@
-package account.domain;
+package account.dto;
 
+import account.domain.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.List;
 
-@Entity
-@Table(name = "security_user")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private long id;
+public class UserDto {
     @NotEmpty(message = "Name is required")
-    @Column(name = "name", nullable = false)
     private String name;
 
     @NotEmpty(message = "Last name is required")
-    @Column(name = "last_name", nullable = false)
     private String lastname;
-
-//    @Email(regexp = ".*@acme\\.com",message = "Email must end with @acme.com", flags = Pattern.Flag.CASE_INSENSITIVE)
     @NotNull(message = "Email is required")
     @Pattern(regexp = ".*@acme\\.com", message = "Email must end with @acme.com", flags = Pattern.Flag.CASE_INSENSITIVE)
-    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @Size(min = 12, message = "Password length must be 12 chars minimum!")
+    @NotEmpty(message = "Password length must be 12 chars minimum!")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Column(name = "password", nullable = false)
     private String password;
 
     @JsonIgnore
-    @Column(name = "role")
-    @ManyToMany(fetch = FetchType.EAGER)
-    List<Role> roles;
-    public User() {
-
+    private List<Role> roles;
+    public UserDto() {
     }
 
-    public User(String name, String lastName, String email, String password) {
+    public UserDto(String name, String lastName, String email, String password) {
         this.name = name;
         this.lastname = lastName;
         this.email = email;
         this.password = password;
     }
 
-    public User(String name, String lastName, String email, String password, List<Role> roles) {
+    public UserDto(String name, String lastName, String email, String password, List<Role> roles) {
         this.name = name;
         this.lastname = lastName;
         this.email = email;
         this.password = password;
         this.roles = roles;
     }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
@@ -102,17 +83,5 @@ public class User {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", roles=" + roles +
-                '}';
     }
 }

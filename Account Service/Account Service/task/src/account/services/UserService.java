@@ -1,6 +1,9 @@
 package account.services;
 
 import account.domain.User;
+import account.dto.ChangePasswordDto;
+import account.dto.ResponseBody;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 
@@ -15,7 +18,7 @@ public interface UserService {
 
     User saveUser(User User);
 
-    User updateUser(Long id, User User);
+    ResponseBody changePassword(ChangePasswordDto changePasswordDto, UserDetails userDetails);
 
     void deleteUserById(Long id);
 

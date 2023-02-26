@@ -519,6 +519,1125 @@ files:
       };
     }
   learner_created: false
+- name: src/account/repositories/PaymentRepository.java
+  visible: true
+  text: |
+    package account.repositories;
+
+    import account.domain.Payment;
+    import org.springframework.data.jpa.repository.JpaRepository;
+
+    public interface PaymentRepository extends JpaRepository<Payment, Long> {
+
+    }
+  learner_created: true
+- name: src/account/config/AccountServiceUserDetailsService.java
+  visible: true
+  text: |
+    package account.config;
+
+    public class AccountServiceUserDetailsService {
+    }
+  learner_created: true
+- name: src/account/errors/UserException.java
+  visible: true
+  text: |
+    package account.errors;
+
+    import org.springframework.http.HttpStatus;
+
+
+    public class UserException extends RuntimeException {
+        private String error;
+        private HttpStatus status;
+
+
+        public UserException(String error) {
+            this.error = error;
+            this.status = HttpStatus.BAD_REQUEST;
+        }
+
+        public UserException(String error, HttpStatus status) {
+            this.error = error;
+            this.status = status;
+        }
+
+        public HttpStatus getStatus() {
+            return status;
+        }
+
+        public void setStatus(HttpStatus status) {
+            this.status = status;
+        }
+
+        public void setError(String error) {
+            this.error = error;
+        }
+
+        public String getError() {
+            return error;
+        }
+
+    }
+  learner_created: true
+- name: src/account/config/UserDetailsImpl.java
+  visible: true
+  text: |
+    package account.config;
+
+    import account.domain.User;
+    import org.springframework.security.core.GrantedAuthority;
+    import org.springframework.security.core.authority.SimpleGrantedAuthority;
+    import org.springframework.security.core.userdetails.UserDetails;
+
+    import java.util.Collection;
+    import java.util.List;
+
+    public class UserDetailsImpl implements UserDetails {
+        private final String username;
+        private final String password;
+        private final List<GrantedAuthority> rolesAndAuthorities;
+
+        public UserDetailsImpl(User user) {
+            username = user.getEmail().toLowerCase();
+            password = user.getPassword();
+            rolesAndAuthorities = List.of(new SimpleGrantedAuthority(user.getRoles().toString()));
+        }
+
+        @Override
+        public Collection<? extends GrantedAuthority> getAuthorities() {
+            return rolesAndAuthorities;
+        }
+
+        @Override
+        public String getPassword() {
+            return password;
+        }
+
+        @Override
+        public String getUsername() {
+            return username;
+        }
+
+        // 4 remaining methods that just return true
+        @Override
+        public boolean isAccountNonExpired() {
+            return true;
+        }
+
+        @Override
+        public boolean isAccountNonLocked() {
+            return true;
+        }
+
+        @Override
+        public boolean isCredentialsNonExpired() {
+            return true;
+        }
+
+        @Override
+        public boolean isEnabled() {
+            return true;
+        }
+    }
+  learner_created: true
+- name: src/account/errors/UserExistsException.java
+  visible: true
+  text: |
+    package account.errors;
+
+    import org.springframework.http.HttpStatus;
+
+    public class UserExistsException extends UserException{
+
+        @Override
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+
+        String message;
+        public UserExistsException(String error, HttpStatus status, String message) {
+            super(error, status);
+            this.message = message;
+        }
+
+    }
+  learner_created: true
+- name: src/account/config/WebSecurityConfig.java
+  visible: true
+  text: |
+    package account.config;
+
+    import org.springframework.beans.factory.annotation.Autowired;
+
+    import org.springframework.context.annotation.Bean;
+    import org.springframework.context.annotation.Configuration;
+    import org.springframework.http.HttpMethod;
+    import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+    import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+    import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+    import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+    import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+    import org.springframework.security.config.http.SessionCreationPolicy;
+
+    import org.springframework.security.core.userdetails.UserDetailsService;
+    import org.springframework.security.crypto.password.PasswordEncoder;
+
+    @Configuration
+    @EnableWebSecurity
+    public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+        RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+
+        @Autowired
+        private UserDetailsService userDetailsService;
+
+        @Autowired
+        private PasswordEncoder passwordEncoder;
+
+        @Autowired
+        public WebSecurityConfig(RestAuthenticationEntryPoint restAuthenticationEntryPoint) {
+            this.restAuthenticationEntryPoint = restAuthenticationEntryPoint;
+        }
+        @Override
+        public void configure(HttpSecurity http) throws Exception {
+
+            http.httpBasic()
+                    .authenticationEntryPoint(restAuthenticationEntryPoint) // Handle auth error
+                    .and()
+                    .csrf().disable().headers().frameOptions().disable() // for Postman, the H2 console
+                    .and()
+                    .authorizeRequests() // manage access
+                    .antMatchers(HttpMethod.POST, "/api/signup").permitAll()
+                    .mvcMatchers(HttpMethod.POST,"/api/empl").authenticated()
+                    // other matchers
+                    //.anyRequest().authenticated() // all other requests must be authenticated
+                    .and()
+                    .sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS); // no session
+        }
+
+
+
+
+        @Bean
+        public DaoAuthenticationProvider authenticationProvider(){
+            DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+            provider.setPasswordEncoder(passwordEncoder);
+            provider.setUserDetailsService(userDetailsService);
+            return provider;
+        }
+
+    }
+  learner_created: true
+- name: src/account/services/PaymentService.java
+  visible: true
+  text: |
+    package account.services;
+
+    import account.domain.User;
+
+    public interface PaymentService {
+        User getEmployee();
+    }
+  learner_created: true
+- name: src/account/controllers/UserController.java
+  visible: true
+  text: |
+    package account.controllers;
+
+
+    import account.domain.User;
+    import account.services.UserServiceImpl;
+    import io.swagger.v3.oas.annotations.Operation;
+    import io.swagger.v3.oas.annotations.responses.ApiResponse;
+    import io.swagger.v3.oas.annotations.tags.Tag;
+    import org.springframework.http.HttpStatus;
+    import org.springframework.http.ResponseEntity;
+    import org.springframework.security.core.annotation.AuthenticationPrincipal;
+    import org.springframework.security.core.userdetails.UserDetails;
+    import org.springframework.web.bind.annotation.*;
+
+    import javax.validation.Valid;
+    import java.util.List;
+
+    @CrossOrigin(origins = "http://localhost:28852")
+    @RestController
+    @RequestMapping("/api")
+    @Tag(name = "User", description = "User API")
+    public class UserController {
+
+        private final UserServiceImpl userService;
+
+        public UserController(UserServiceImpl userService) {
+            this.userService = userService;
+        }
+
+        @Operation(summary = "Get all Users", description = "Get all Users, available or not", tags = {
+                "User" })
+        @ApiResponse(responseCode = "200", description = "OK")
+        @GetMapping()
+        public List<User> getAllUsers() {
+            return userService.findAllUsers();
+        }
+
+        @Operation(summary = "Get a User by id", description = "Get a User by id", tags = {
+                "User" })
+        @ApiResponse(responseCode = "200", description = "OK")
+        @GetMapping("/{id}")
+        public User getUserById(@PathVariable Long id) {
+            return userService.findUserById(id);
+        }
+
+        @Operation(summary = "Get a User by name", description = "Get a User by name", tags = {
+                "User" })
+        @ApiResponse(responseCode = "200", description = "OK")
+        @GetMapping("/name/{name}")
+        public List<User> getUserByName(@PathVariable String name) {
+            return userService.findUsersByName(name);
+        }
+
+        @Operation(summary = "Create a User", description = "Create a User", tags = {
+                "User" })
+        @ApiResponse(responseCode = "200", description = "OK")
+        @PostMapping("/auth/signup")
+        public User createUser(@RequestBody User User) {
+            return userService.saveUser(User);
+        }
+
+        @Operation(summary = "Update a User", description = "Update a User", tags = {
+                "User" })
+        @ApiResponse(responseCode = "204", description = "OK")
+        @PutMapping("/{id}")
+        public User updateUser(@PathVariable Long id, @RequestBody User User) {
+            return userService.updateUser(id, User);
+        }
+        @Operation(summary = "Delete a User", description = "Delete a User by id", tags = {
+                "User" })
+        @ApiResponse(responseCode = "200", description = "No content")
+        @DeleteMapping("/{id}")
+        public void deleteUser(@PathVariable Long id) {
+            userService.deleteUserById(id);
+        }
+
+        @Operation(summary = "Delete a User", description = "Delete a User", tags = {
+                "User" })
+        @ApiResponse(responseCode = "204", description = "No content")
+        @DeleteMapping()
+
+        public ResponseEntity<?> deleteUser(@RequestBody User User) {
+            userService.deleteUser(User);
+            return ResponseEntity.noContent().build();
+        }
+
+        @Operation(summary = "Get a User by email", description = "Get a User by email", tags = {
+                "User" })
+        @ApiResponse(responseCode = "200", description = "OK")
+        @GetMapping("/email/{email}")
+        public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+            return ResponseEntity.ok(userService.findUserByEmail(email));
+        }
+
+        @GetMapping("/empl/payment")
+        public ResponseEntity<User> getPayment(@Valid @AuthenticationPrincipal UserDetails userDetails) {
+            if (userDetails == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+            return ResponseEntity.ok(userService.findUserByEmail(userDetails.getUsername()));
+        }
+
+    }
+  learner_created: true
+- name: src/account/services/UserService.java
+  visible: true
+  text: |
+    package account.services;
+
+    import account.domain.User;
+
+    import java.util.List;
+
+    public interface UserService {
+        List<User> findAllUsers();
+
+        User findUserById(Long id);
+
+        User findUserByEmail(String email);
+
+        List<User> findUsersByName(String name);
+
+        User saveUser(User User);
+
+        User updateUser(Long id, User User);
+
+        void deleteUserById(Long id);
+
+        void deleteUser(User User);
+    }
+  learner_created: true
+- name: src/account/services/UserServiceImpl.java
+  visible: true
+  text: |
+    package account.services;
+
+    import account.domain.User;
+    import account.errors.UserException;
+    import account.errors.UserExistsException;
+    import account.repositories.UserRepository;
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.http.HttpStatus;
+    import org.springframework.security.crypto.password.PasswordEncoder;
+    import org.springframework.stereotype.Service;
+
+    import javax.validation.ConstraintViolation;
+    import javax.validation.Validator;
+    import java.util.List;
+    import java.util.Set;
+
+    @Service
+    public class UserServiceImpl implements UserService{
+
+        @Autowired
+        private Validator validator;
+
+        @Autowired
+        private UserRepository userRepository;
+
+        @Autowired
+        private PasswordEncoder passwordEncoder;
+
+        /**
+         * Construct UserService
+         *
+         * @param validator         Validator that enforce entities' constraints
+         * @param userRepository    User Repository
+         */
+
+
+        /**
+         * Get all Users from the database
+         *
+         * @return List of Users
+         *
+         */
+        @Override
+        public List<User> findAllUsers() {
+            return userRepository.findAll();
+        }
+
+        /**
+         * Find a user by id
+         *
+         * @param id the id of the User
+         * @return the User
+         * @throws UserException if the User is not found
+         *
+         */
+        @Override
+        public User findUserById(Long id) {
+            return userRepository.findById(id).orElseThrow(() -> new UserException("User not found"));
+        }
+
+        @Override
+        public User findUserByEmail(String email) {
+            return userRepository.findByEmail(email).orElseThrow(() -> new UserException("User not found"));
+        }
+
+        /**
+         * Find all the users by name containing the given string
+         *
+         * @param name the name of the user
+         * @return the list of users
+         *
+         */
+        @Override
+        public List<User> findUsersByName(String name) {
+            return userRepository.findByNameContaining(name);
+        }
+
+        /**
+         * Save a User to the database
+         *
+         * @param user     the name of the User
+         * @return User
+         *
+         */
+
+        // TODO: Should create an UserDto
+
+        @Override
+        public User saveUser(User user) {
+            // TODO: should check if there's a query for searching strings without caring about case
+            boolean alreadyRegisteredEmail = userRepository.findByEmail(user.getEmail().toLowerCase()).isPresent();
+            Set<ConstraintViolation<User>> violations = validator.validate(user);
+            if (!violations.isEmpty() || alreadyRegisteredEmail) {
+                throw new UserExistsException("Bad Request", HttpStatus.BAD_REQUEST, "User exist!");
+            }
+    //        if (!user.getEmail().endsWith("@acme.com")) {
+    //            throw new UserException("User email must end with @acme.com", HttpStatus.BAD_REQUEST);
+    //        }
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setEmail(user.getEmail().toLowerCase());
+
+
+            return userRepository.save(user);
+        }
+
+        /**
+         * Update a User
+         *
+         * @param id        the id of the User     *
+         * @param user user     *
+         * @return User
+         */
+        @Override
+        public User updateUser(Long id, User user) {
+            User _user = userRepository.findById(id)
+                    .orElseThrow(() -> new UserException("User not found"));
+
+            _user.setName(user.getName());
+            _user.setLastname(user.getLastname());
+            _user.setEmail(user.getEmail());
+            _user.setPassword(user.getPassword());
+
+            return userRepository.save(_user);
+        }
+
+        /**
+         * Delete a User
+         *
+         * @param id the id of the User
+         *
+         */
+        @Override
+        public void deleteUserById(Long id) {
+            userRepository.deleteById(id);
+        }
+
+        /**
+         * Delete a User
+         *
+         * @param user user
+         *
+         */
+        @Override
+        public void deleteUser(User user) {
+            userRepository.delete(user);
+        }
+
+    }
+  learner_created: true
+- name: src/account/services/PaymentServiceImpl.java
+  visible: true
+  text: |
+    package account.services;
+
+    import account.domain.User;
+    import account.repositories.PaymentRepository;
+    import account.repositories.UserRepository;
+    import org.springframework.stereotype.Service;
+
+    @Service
+    public class PaymentServiceImpl implements PaymentService {
+
+
+        final private PaymentRepository paymentRepository;
+        final private UserRepository userRepository;
+
+        public PaymentServiceImpl(PaymentRepository paymentRepository, UserRepository userRepository) {
+            this.paymentRepository = paymentRepository;
+            this.userRepository = userRepository;
+        }
+
+        @Override
+        public User getEmployee() {
+            return null;
+        }
+    }
+  learner_created: true
+- name: src/account/domain/User.java
+  visible: true
+  text: |
+    package account.domain;
+
+    import com.fasterxml.jackson.annotation.JsonIgnore;
+    import com.fasterxml.jackson.annotation.JsonProperty;
+
+    import javax.persistence.*;
+    import javax.validation.constraints.Email;
+    import javax.validation.constraints.NotEmpty;
+    import javax.validation.constraints.NotNull;
+    import javax.validation.constraints.Pattern;
+    import java.util.List;
+
+    @Entity
+    @Table(name = "security_user")
+    public class User {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(name = "id")
+        private long id;
+        @NotEmpty(message = "Name is required")
+        @Column(name = "name", nullable = false)
+        private String name;
+
+        @NotEmpty(message = "Last name is required")
+        @Column(name = "last_name", nullable = false)
+        private String lastname;
+
+    //    @Email(regexp = ".*@acme\\.com",message = "Email must end with @acme.com", flags = Pattern.Flag.CASE_INSENSITIVE)
+        @NotNull(message = "Email is required")
+        @Pattern(regexp = ".*@acme\\.com", message = "Email must end with @acme.com", flags = Pattern.Flag.CASE_INSENSITIVE)
+        @Column(name = "email", nullable = false, unique = true)
+        private String email;
+
+        // @Size (min = 8, message = "Password must be at least 8 characters")
+        @NotEmpty(message = "Password is required")
+        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+        @Column(name = "password", nullable = false)
+        private String password;
+
+        @JsonIgnore
+        @Column(name = "role", nullable = false)
+        @ManyToMany(fetch = FetchType.EAGER)
+        List<Role> roles;
+        protected User() {
+
+        }
+
+        public User(String name, String lastName, String email, String password) {
+            this.name = name;
+            this.lastname = lastName;
+            this.email = email;
+            this.password = password;
+        }
+
+        public User(String name, String lastName, String email, String password, List<Role> roles) {
+            this.name = name;
+            this.lastname = lastName;
+            this.email = email;
+            this.password = password;
+            this.roles = roles;
+        }
+
+        public long getId() {
+            return id;
+        }
+
+        public void setId(long id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getLastname() {
+            return lastname;
+        }
+
+        public void setLastname(String lastName) {
+            this.lastname = lastName;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+
+        public List<Role> getRoles() {
+            return roles;
+        }
+
+        public void setRoles(List<Role> roles) {
+            this.roles = roles;
+        }
+    }
+  learner_created: true
+- name: src/account/config/BCryptEncoderConfig.java
+  visible: true
+  text: |
+    package account.config;
+
+    import org.springframework.context.annotation.Bean;
+    import org.springframework.context.annotation.Configuration;
+    import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+    import org.springframework.security.crypto.password.PasswordEncoder;
+
+    @Configuration
+    public class BCryptEncoderConfig {
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+            return new BCryptPasswordEncoder(14);
+        }
+    }
+  learner_created: true
+- name: src/account/errors/ErrorResponse.java
+  visible: true
+  text: |+
+    package account.errors;
+
+    import com.fasterxml.jackson.annotation.JsonIgnore;
+
+    public class ErrorResponse {
+        private String timestamp;
+
+        private int status;
+
+        private String error;
+
+        private String path;
+
+        private String message;
+
+        public ErrorResponse(String timestamp, int status, String error, String path) {
+            this.timestamp = timestamp;
+            this.status = status;
+            this.error = error;
+            this.path = path;
+        }
+
+        public ErrorResponse(String timestamp, int status, String error, String message, String path) {
+            this.timestamp = timestamp;
+            this.status = status;
+            this.error = error;
+            this.message = message;
+            this.path = path;
+        }
+
+
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
+        }
+
+        public String getError() {
+            return error;
+        }
+
+        public void setError(String error) {
+            this.error = error;
+        }
+
+        public String getTimestamp() {
+            return timestamp;
+        }
+
+        public void setTimestamp(String timestamp) {
+            this.timestamp = timestamp;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public void setPath(String path) {
+            this.path = path;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+    }
+
+  learner_created: true
+- name: src/account/errors/CustomControllerAdvice.java
+  visible: true
+  text: |
+    package account.errors;
+
+    import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
+    import org.springframework.dao.DataIntegrityViolationException;
+    import org.springframework.http.HttpStatus;
+    import org.springframework.http.ResponseEntity;
+    import org.springframework.web.bind.annotation.ExceptionHandler;
+    import org.springframework.web.bind.annotation.ResponseStatus;
+    import org.springframework.web.bind.annotation.RestControllerAdvice;
+    import org.springframework.web.context.request.WebRequest;
+
+    import javax.servlet.http.HttpServletRequest;
+    import javax.validation.ConstraintViolationException;
+    import java.time.LocalDateTime;
+
+    @RestControllerAdvice
+    public class CustomControllerAdvice {
+
+        int status;
+        String timestamp;
+        String path;
+        String message;
+
+
+    //    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    //    @ExceptionHandler(RuntimeException.class)
+    //    public ResponseEntity<ErrorResponse> handleBadCredentialsException(
+    //            UserExistsException e, HttpServletRequest request) {
+    //
+    //        status = e.getStatus().value();
+    //        timestamp = LocalDateTime.now().toString();
+    //        message = e.getMessage();
+    //        path = request.getServletPath();
+    //
+    //        return new ResponseEntity<>(
+    //                new ErrorResponse(
+    //                        timestamp,
+    //                        status,
+    //                        e.getError(),
+    //                        "",
+    //                        path)
+    //                , e.getStatus()
+    //        );
+    //    }
+
+        @ResponseStatus(HttpStatus.BAD_REQUEST)
+        @ExceptionHandler(UserExistsException.class)
+        public ResponseEntity<ErrorResponse> handleUserExistsException(
+                UserExistsException e, HttpServletRequest request) {
+
+            status = e.getStatus().value();
+            timestamp = LocalDateTime.now().toString();
+            message = e.getMessage();
+            path = request.getServletPath();
+
+            return new ResponseEntity<>(
+                    new ErrorResponse(
+                            timestamp,
+                            status,
+                            e.getError(),
+                            message,
+                            path)
+                    , e.getStatus()
+            );
+        }
+
+
+        @ResponseStatus(HttpStatus.BAD_REQUEST)
+        @ExceptionHandler(RuntimeException.class)
+        public ResponseEntity<ErrorResponse> handleUserExceptions(
+                UserException e, HttpServletRequest request) {
+
+            status = e.getStatus().value();
+            timestamp = LocalDateTime.now().toString();
+            path = request.getServletPath();
+
+            return new ResponseEntity<>(
+                    new ErrorResponse(
+                            timestamp,
+                            status,
+                            e.getError(),
+                            path)
+                    , e.getStatus()
+                    );
+        }
+
+        @ExceptionHandler(Exception.class) // exception handled
+        public ResponseEntity<ErrorResponse> handleExceptions(
+                UserException e, HttpServletRequest request) {
+            status = e.getStatus().value();
+            timestamp = LocalDateTime.now().toString();
+            path = request.getContextPath();
+            return new ResponseEntity<>(
+                    new ErrorResponse(
+                            timestamp,
+                            status,
+                            e.getError(),
+                            path)
+                    , e.getStatus()
+            );
+        }
+    }
+  learner_created: true
+- name: src/account/repositories/UserRepository.java
+  visible: true
+  text: |
+    package account.repositories;
+
+    import account.domain.User;
+
+    import io.swagger.v3.oas.annotations.tags.Tag;
+
+    import org.springframework.data.jpa.repository.JpaRepository;
+    import org.springframework.data.jpa.repository.Query;
+    import org.springframework.data.repository.query.Param;
+    import org.springframework.data.rest.core.annotation.RestResource;
+    import org.springframework.stereotype.Repository;
+
+    import java.util.List;
+    import java.util.Optional;
+
+    @Repository
+    @Tag(name = "User", description = "User API")
+    public interface UserRepository extends JpaRepository<User, Long> {
+
+        /**
+         *
+         * Find all Users from the database
+         *
+         */
+        List<User> findAll();
+
+        /**
+         * Find a user by id
+         *
+         * @param id the id of the user
+         * @return the user
+         */
+
+        Optional<User> findById(@Param("id") long id);
+
+        /**
+         * Find all the users by name containing the given string
+         *
+         * @param name the name of the user
+         * @return the list of users
+         */
+        List<User> findByNameContaining(@Param("name") String name);
+
+        /**
+         * Save a user
+         *
+         * @param User the user to save
+         * @return the saved user
+         */
+
+        @Override
+    //     @RestResource(exported = false)
+        <S extends User> S save(S User);
+
+        @Override
+        @RestResource(exported = false)
+        <S extends User> List<S> saveAll(Iterable<S> users);
+
+        // @RestResource(exported = false)
+        void deleteById(long id);
+
+        @Override
+    //    @RestResource(exported = false)
+        void delete(User user);
+
+        @Override
+        @RestResource(exported = false)
+        void deleteAll(Iterable<? extends User> users);
+
+    //    @Query("SELECT u FROM User u WHERE u.email = :email")
+        Optional<User> findByEmail(String email);
+    }
+  learner_created: true
+- name: src/account/config/RestAuthenticationEntryPoint.java
+  visible: true
+  text: |
+    package account.config;
+
+    import org.springframework.security.core.AuthenticationException;
+    import org.springframework.security.web.AuthenticationEntryPoint;
+    import org.springframework.stereotype.Component;
+
+    import javax.servlet.ServletException;
+    import javax.servlet.http.HttpServletRequest;
+    import javax.servlet.http.HttpServletResponse;
+    import java.io.IOException;
+
+    @Component
+    public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
+        @Override
+        public void commence(
+                HttpServletRequest request,
+                HttpServletResponse response,
+                AuthenticationException authException) throws IOException, ServletException {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, " "
+            );
+        }
+    }
+  learner_created: true
+- name: src/account/services/UserDetailsServiceImpl.java
+  visible: true
+  text: |
+    package account.services;
+
+    import account.config.UserDetailsImpl;
+    import account.domain.User;
+    import account.repositories.UserRepository;
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.security.core.userdetails.UserDetails;
+    import org.springframework.security.core.userdetails.UserDetailsService;
+    import org.springframework.security.core.userdetails.UsernameNotFoundException;
+    import org.springframework.stereotype.Service;
+
+    import java.util.logging.Logger;
+
+    @Service
+    public class UserDetailsServiceImpl implements UserDetailsService {
+
+        final UserRepository userRepository;
+
+        Logger logger = Logger.getLogger(UserDetailsServiceImpl.class.getName());
+
+        public UserDetailsServiceImpl(UserRepository userRepository) {
+            this.userRepository = userRepository;
+        }
+        @Override
+        public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+            logger.info("loadUserByUsername: " + username);
+            User user = userRepository.findByEmail(username.toLowerCase())
+                    .orElseThrow(() -> new UsernameNotFoundException("Not found: " + username));
+
+            return new UserDetailsImpl(user);
+        }
+
+    }
+  learner_created: true
+- name: src/account/domain/Role.java
+  visible: true
+  text: |-
+    package account.domain;
+
+    import org.springframework.security.core.GrantedAuthority;
+
+    import javax.persistence.*;
+    import java.io.Serial;
+
+    @Entity
+    @Table(name = "security_role")
+    public class Role implements GrantedAuthority {
+        @Serial
+        private static final long serialVersionUID = 1L;
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long id;
+
+        @Column(name = "role_name")
+        private String roleName;
+        @Column(name = "role_description")
+        private String description;
+
+        protected Role() {
+
+        }
+
+        public Role(String description, String roleName) {
+            this.description = description;
+            this.roleName = roleName;
+        }
+
+        @Override
+        public String getAuthority() {
+            return roleName;
+        }
+
+        public Long getId() {
+            return id;
+        }
+
+        public void setId(Long id) {
+            this.id = id;
+        }
+        public String getRoleName() {
+            return roleName;
+        }
+
+        public void setRoleName(String roleName) {
+            this.roleName = roleName;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+    }
+  learner_created: true
+- name: src/account/domain/Payment.java
+  visible: true
+  text: |
+    package account.domain;
+
+    import javax.persistence.*;
+    import javax.validation.constraints.NotNull;
+    @Entity
+    @Table(name = "payments")
+    public class Payment {
+
+        @Id
+        @GeneratedValue(strategy = GenerationType.AUTO)
+        private Long id;
+        @ManyToOne
+        @JoinColumn(name = "user_id")
+        @NotNull(message = "employee email must not be empty")
+        private User employee;
+
+
+        public Payment(Long id, User employee) {
+            this.id = id;
+            this.employee = employee;
+        }
+
+        protected Payment() {
+        }
+
+        public Long getId() {
+            return id;
+        }
+
+        public void setId(Long id) {
+            this.id = id;
+        }
+
+        public User getEmployee() {
+            return employee;
+        }
+
+        public void setEmployee(User employee) {
+            this.employee = employee;
+        }
+    }
+  learner_created: true
+- name: src/account/utils/SecurityChecker.java
+  visible: true
+  learner_created: true
+- name: src/account/utils/UserMapper.java
+  visible: true
+  learner_created: true
+- name: src/account/dto/UserDto.java
+  visible: true
+  learner_created: true
+- name: src/account/dto/ChangePasswordDto.java
+  visible: true
+  learner_created: true
+- name: src/account/dto/ResponseBody.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/learn/step/16603#comment
-status: Unchecked
-record: -1
+status: Solved
+feedback:
+  message: Congratulations!
+  time: "Sun, 26 Feb 2023 06:49:54 UTC"
+record: 3
