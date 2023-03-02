@@ -4,31 +4,112 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e5a01a35-3eea-4b14-aba4-a62b2b9e8607" name="Changes" comment="[Account Service] Part2: done. Email case and null userDetails solved&#10;&#10;Now it returns unauthorized status when the user details are empty.">
-      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/dto/ChangePasswordDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/dto/ResponseBody.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/dto/UserDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/utils/SecurityChecker.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/utils/UserMapper.java" afterDir="false" />
+    <list default="true" id="e5a01a35-3eea-4b14-aba4-a62b2b9e8607" name="Changes" comment="[Account Service] Part3: done. Change password and security checker against breached passwords implemented.">
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/Account_Service.Account_Service-task-bin-default.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/Account_Service.Account_Service-task-bin-default.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/bin/default/Account_Service.Account_Service-task-bin-default-bin-default.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/bin/default/Account_Service.Account_Service-task-bin-default-bin-default.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/bin/default/Account_Service.Account_Service-task-bin-default-bin-default.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/bin/default/bin/default/Account_Service.Account_Service-task-bin-default-bin-default-bin-default.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/bin/default/bin/default/Account_Service.Account_Service-task-bin-default-bin-default-bin-default.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/bin/default/bin/default/build/reports/tests/Account_Service.Account_Service-task-bin-default-bin-default-bin-default-build-reports-tests.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/bin/default/bin/default/build/test-results/Account_Service.Account_Service-task-bin-default-bin-default-bin-default-build-test-results.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/bin/default/bin/default/build/test-results/Account_Service.Account_Service-task-bin-default-bin-default-bin-default-build-test-results.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/bin/default/bin/default/build/test-results/Account_Service.Account_Service-task-bin-default-bin-default-bin-default-build-test-results.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/bin/default/bin/default/build/tmp/Account_Service.Account_Service-task-bin-default-bin-default-bin-default-build-tmp.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/bin/default/build/classes/java/Account_Service.Account_Service-task-bin-default-bin-default-build-classes-java.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/bin/default/build/classes/java/Account_Service.Account_Service-task-bin-default-bin-default-build-classes-java.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/bin/default/build/classes/java/Account_Service.Account_Service-task-bin-default-bin-default-build-classes-java.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/bin/default/build/generated/sources/annotationProcessor/java/Account_Service.Account_Service-task-bin-default-bin-default-build-generated-sources-annotationProcessor-java.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/bin/default/build/generated/sources/headers/java/Account_Service.Account_Service-task-bin-default-bin-default-build-generated-sources-headers-java.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/bin/default/build/generated/sources/headers/java/Account_Service.Account_Service-task-bin-default-bin-default-build-generated-sources-headers-java.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/bin/default/build/reports/tests/Account_Service.Account_Service-task-bin-default-bin-default-build-reports-tests.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/bin/default/build/reports/tests/Account_Service.Account_Service-task-bin-default-bin-default-build-reports-tests.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/bin/default/build/test-results/Account_Service.Account_Service-task-bin-default-bin-default-build-test-results.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/bin/default/build/test-results/Account_Service.Account_Service-task-bin-default-bin-default-build-test-results.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/bin/default/build/test-results/Account_Service.Account_Service-task-bin-default-bin-default-build-test-results.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/bin/default/build/tmp/Account_Service.Account_Service-task-bin-default-bin-default-build-tmp.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/bin/default/build/tmp/Account_Service.Account_Service-task-bin-default-bin-default-build-tmp.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/bin/default/build/tmp/Account_Service.Account_Service-task-bin-default-bin-default-build-tmp.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/build/classes/java/Account_Service.Account_Service-task-bin-default-build-classes-java.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/build/classes/java/Account_Service.Account_Service-task-bin-default-build-classes-java.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/build/classes/java/bin/Account_Service.Account_Service-task-bin-default-build-classes-java-bin.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/build/classes/java/bin/Account_Service.Account_Service-task-bin-default-build-classes-java-bin.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/build/classes/java/bin/Account_Service.Account_Service-task-bin-default-build-classes-java-bin.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/build/generated/sources/annotationProcessor/java/Account_Service.Account_Service-task-bin-default-build-generated-sources-annotationProcessor-java.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/build/generated/sources/annotationProcessor/java/Account_Service.Account_Service-task-bin-default-build-generated-sources-annotationProcessor-java.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/build/generated/sources/annotationProcessor/java/Account_Service.Account_Service-task-bin-default-build-generated-sources-annotationProcessor-java.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/build/generated/sources/annotationProcessor/java/bin/Account_Service.Account_Service-task-bin-default-build-generated-sources-annotationProcessor-java-bin.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/build/generated/sources/annotationProcessor/java/bin/Account_Service.Account_Service-task-bin-default-build-generated-sources-annotationProcessor-java-bin.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/build/generated/sources/headers/java/Account_Service.Account_Service-task-bin-default-build-generated-sources-headers-java.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/build/generated/sources/headers/java/Account_Service.Account_Service-task-bin-default-build-generated-sources-headers-java.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/build/generated/sources/headers/java/Account_Service.Account_Service-task-bin-default-build-generated-sources-headers-java.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/build/generated/sources/headers/java/bin/Account_Service.Account_Service-task-bin-default-build-generated-sources-headers-java-bin.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/build/generated/sources/headers/java/bin/Account_Service.Account_Service-task-bin-default-build-generated-sources-headers-java-bin.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/build/reports/tests/Account_Service.Account_Service-task-bin-default-build-reports-tests.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/build/reports/tests/Account_Service.Account_Service-task-bin-default-build-reports-tests.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/build/reports/tests/bin/Account_Service.Account_Service-task-bin-default-build-reports-tests-bin.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/build/reports/tests/bin/Account_Service.Account_Service-task-bin-default-build-reports-tests-bin.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/build/reports/tests/bin/Account_Service.Account_Service-task-bin-default-build-reports-tests-bin.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/build/test-results/Account_Service.Account_Service-task-bin-default-build-test-results.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/build/test-results/Account_Service.Account_Service-task-bin-default-build-test-results.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/build/test-results/bin/Account_Service.Account_Service-task-bin-default-build-test-results-bin.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/build/test-results/bin/Account_Service.Account_Service-task-bin-default-build-test-results-bin.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/build/test-results/bin/Account_Service.Account_Service-task-bin-default-build-test-results-bin.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/build/tmp/Account_Service.Account_Service-task-bin-default-build-tmp.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/build/tmp/Account_Service.Account_Service-task-bin-default-build-tmp.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/build/tmp/bin/Account_Service.Account_Service-task-bin-default-build-tmp-bin.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/build/tmp/bin/Account_Service.Account_Service-task-bin-default-build-tmp-bin.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/bin/default/build/tmp/bin/Account_Service.Account_Service-task-bin-default-build-tmp-bin.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/build/classes/java/bin/Account_Service.Account_Service-task-build-classes-java-bin.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/build/classes/java/bin/Account_Service.Account_Service-task-build-classes-java-bin.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/build/classes/java/bin/Account_Service.Account_Service-task-build-classes-java-bin.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/build/generated/sources/annotationProcessor/java/bin/Account_Service.Account_Service-task-build-generated-sources-annotationProcessor-java-bin.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/build/generated/sources/annotationProcessor/java/bin/Account_Service.Account_Service-task-build-generated-sources-annotationProcessor-java-bin.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/build/generated/sources/annotationProcessor/java/bin/Account_Service.Account_Service-task-build-generated-sources-annotationProcessor-java-bin.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/build/generated/sources/headers/java/bin/Account_Service.Account_Service-task-build-generated-sources-headers-java-bin.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/build/generated/sources/headers/java/bin/Account_Service.Account_Service-task-build-generated-sources-headers-java-bin.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/build/generated/sources/headers/java/bin/Account_Service.Account_Service-task-build-generated-sources-headers-java-bin.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/build/reports/tests/bin/Account_Service.Account_Service-task-build-reports-tests-bin.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/build/test-results/bin/Account_Service.Account_Service-task-build-test-results-bin.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/build/test-results/bin/Account_Service.Account_Service-task-build-test-results-bin.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/build/tmp/bin/Account_Service.Account_Service-task-build-tmp-bin.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/Account Service/task/build/tmp/bin/Account_Service.Account_Service-task-build-tmp-bin.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/controllers/PaymentController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/dto/PaymentDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/dto/PaymentRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/services/PaymentConversionService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/utils/PaymentId.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/utils/PaymentUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/utils/StringToYearMonthConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/utils/YearMonthConverter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.3.3/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.3/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.3.3/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.3/checksums/sha1-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.3.3/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.3/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.3.3/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.3/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.3.3/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.3/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.3.3/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.3/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.3.3/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.3/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/frameworkLessonHistory/storage.storageData" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/frameworkLessonHistory/storage.storageData" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/frameworkLessonHistory/storage.storageRecordIndex" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/frameworkLessonHistory/storage.storageRecordIndex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Account Service/Attention to business/task-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/Attention to business/task-info.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/Attention to business/task-remote-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/Attention to business/task-remote-info.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/Create the service structure (API)/task-remote-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/Create the service structure (API)/task-remote-info.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/Logging events/task-remote-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/Logging events/task-remote-info.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/Securing connection/task-remote-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/Securing connection/task-remote-info.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Account Service/Security first/task-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/Security first/task-info.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account Service/The authentication/task-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/The authentication/task-info.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account Service/lesson-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/lesson-info.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/Security first/task-remote-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/Security first/task-remote-info.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/The authentication/task-remote-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/The authentication/task-remote-info.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/The authorization/task-remote-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/The authorization/task-remote-info.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Account Service/service_db.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/service_db.mv.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Account Service/task/build/classes/java/main/account/controllers/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/classes/java/main/account/controllers/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account Service/task/build/classes/java/main/account/domain/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/classes/java/main/account/domain/User.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Account Service/task/build/classes/java/main/account/errors/CustomControllerAdvice.class" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/classes/java/main/account/errors/CustomControllerAdvice.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account Service/task/build/classes/java/main/account/services/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/classes/java/main/account/services/UserService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Account Service/task/build/classes/java/main/account/services/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/classes/java/main/account/services/UserServiceImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Account Service/task/build/classes/java/test/AccountServiceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/classes/java/test/AccountServiceTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account Service/task/build/classes/java/test/User.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Account Service/task/build/reports/tests/test/classes/AccountServiceTest.html" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/reports/tests/test/classes/AccountServiceTest.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Account Service/task/build/reports/tests/test/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/reports/tests/test/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Account Service/task/build/reports/tests/test/packages/default-package.html" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/reports/tests/test/packages/default-package.html" afterDir="false" />
@@ -41,21 +122,19 @@
       <change beforePath="$PROJECT_DIR$/Account Service/task/out/production/classes/account/controllers/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/out/production/classes/account/controllers/UserController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Account Service/task/out/production/classes/account/errors/CustomControllerAdvice.class" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/out/production/classes/account/errors/CustomControllerAdvice.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Account Service/task/out/production/classes/account/services/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/out/production/classes/account/services/UserServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account Service/task/out/production/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/out/production/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/config/BCryptEncoderConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/config/BCryptEncoderConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/AccountServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/AccountServiceApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/config/WebSecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/domain/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/domain/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/domain/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/domain/Payment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/errors/CustomControllerAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/errors/CustomControllerAdvice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/services/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/repositories/PaymentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/repositories/PaymentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/services/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/services/PaymentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/services/PaymentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/services/PaymentServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/services/UserDetailsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/services/UserDetailsServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/services/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/services/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account Service/task/src/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account Service/task/test/AccountServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/test/AccountServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/course-info.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/course-remote-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/course-remote-info.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Cinema Room REST Service/.gradle/7.3.3/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../Cinema Room REST Service/.gradle/7.3.3/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Cinema Room REST Service/.gradle/7.3.3/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../Cinema Room REST Service/.gradle/7.3.3/checksums/sha1-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Code Sharing Platform1/.gradle/7.3.3/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../Code Sharing Platform1/.gradle/7.3.3/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Code Sharing Platform1/.gradle/7.3.3/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../Code Sharing Platform1/.gradle/7.3.3/checksums/sha1-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Cinema Room REST Service/Cinema Room REST Service/task/src/resources/banner.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Cinema Room REST Service/Cinema Room REST Service/task/src/resources/banner.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +180,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/java/backend-java/Account Service&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/java/hyperskill-solutions&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -110,7 +189,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.55517244&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.javacompiler&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;ff7a17db6e16f35c5b68c1e4c08dce54&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
@@ -153,7 +232,15 @@
       <workItem from="1677028940742" duration="1641000" />
       <workItem from="1677090318662" duration="140000" />
       <workItem from="1677208282457" duration="1594000" />
-      <workItem from="1677383684223" duration="10531000" />
+      <workItem from="1677383684223" duration="10808000" />
+      <workItem from="1677394592895" duration="789000" />
+      <workItem from="1677428626772" duration="2744000" />
+      <workItem from="1677433392828" duration="350000" />
+      <workItem from="1677512074079" duration="2736000" />
+      <workItem from="1677524371267" duration="1948000" />
+      <workItem from="1677600551066" duration="72000" />
+      <workItem from="1677600642576" duration="6719000" />
+      <workItem from="1677680235915" duration="31201000" />
     </task>
     <task id="LOCAL-00001" summary="Refactoring and unit tests.&#10;&#10;Now the services have an interface and implementation.&#10;The unit tests for entities, services and controllers were implemented.&#10;&#10;More infos soon.">
       <created>1676938521579</created>
@@ -190,7 +277,21 @@
       <option name="project" value="LOCAL" />
       <updated>1677006847986</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="[Account Service] Part3: done. Change password and security checker against breached passwords implemented.">
+      <created>1677394311560</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1677394311560</updated>
+    </task>
+    <task id="LOCAL-00007" summary="[Account Service] Part3: done. Change password and security checker against breached passwords implemented.">
+      <created>1677394331674</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1677394331674</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -212,7 +313,8 @@
     <MESSAGE value="Refactoring and unit tests.&#10;&#10;Now the services have an interface and implementation.&#10;The unit tests for entities, services and controllers were implemented.&#10;&#10;More infos soon." />
     <MESSAGE value="[Account Service] Part2. Wrong answer in test #4&#10;&#10;The issue is the e-mail case. I'm gonna find the solution once I wake up." />
     <MESSAGE value="[Account Service] Part2: done. Email case and null userDetails solved&#10;&#10;Now it returns unauthorized status when the user details are empty." />
-    <option name="LAST_COMMIT_MESSAGE" value="[Account Service] Part2: done. Email case and null userDetails solved&#10;&#10;Now it returns unauthorized status when the user details are empty." />
+    <MESSAGE value="[Account Service] Part3: done. Change password and security checker against breached passwords implemented." />
+    <option name="LAST_COMMIT_MESSAGE" value="[Account Service] Part3: done. Change password and security checker against breached passwords implemented." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

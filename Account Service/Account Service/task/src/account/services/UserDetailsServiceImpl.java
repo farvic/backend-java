@@ -3,7 +3,7 @@ package account.services;
 import account.config.UserDetailsImpl;
 import account.domain.User;
 import account.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

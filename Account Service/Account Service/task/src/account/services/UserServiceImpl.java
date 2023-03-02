@@ -15,11 +15,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.validation.ConstraintViolation;
+
 import javax.validation.Validator;
-import java.util.HashSet;
+
 import java.util.List;
-import java.util.Set;
+
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -92,16 +92,14 @@ public class UserServiceImpl implements UserService{
 
         boolean alreadyRegisteredEmail;
 
-//        Set<ConstraintViolation<User>> violations;
+
         LOGGER.info("Boy?:" + user.getPassword() );
         if (SecurityChecker.isBreached(user.getPassword())) {
-            LOGGER.info("Não veio aqui?");
             throw new UserExistsException("Bad Request", HttpStatus.BAD_REQUEST, "The password is in the hacker's database!");
         }
 
         alreadyRegisteredEmail = userRepository.findByEmail(user.getEmail().toLowerCase()).isPresent();
 
-//        violations = validator.validate(user);
 
         if (alreadyRegisteredEmail) {
             throw new UserExistsException("Bad Request", HttpStatus.BAD_REQUEST, "User exist!");

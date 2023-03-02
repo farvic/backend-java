@@ -12,7 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -41,7 +41,7 @@ public class UserController {
     public User createUser(@Valid @RequestBody UserDto userDto) {
 
         User user = UserMapper.toEntity(userDto);
-        LOGGER.info("Boy????? + " + user.toString());
+
         return userService.saveUser(user);
     }
 
@@ -77,12 +77,5 @@ public class UserController {
         return ResponseEntity.ok(userService.findUserByEmail(email));
     }
 
-    @GetMapping("/empl/payment")
-    public ResponseEntity<User> getPayment(@Valid @AuthenticationPrincipal UserDetails userDetails) {
-        if (userDetails == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-        return ResponseEntity.ok(userService.findUserByEmail(userDetails.getUsername()));
-    }
 
 }

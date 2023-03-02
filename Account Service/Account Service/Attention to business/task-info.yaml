@@ -2075,6 +2075,36 @@ files:
         }
     }
   learner_created: true
+- name: src/resources/banner.txt
+  visible: true
+  learner_created: true
+- name: src/account/controllers/PaymentController.java
+  visible: true
+  learner_created: true
+- name: src/account/utils/PaymentId.java
+  visible: true
+  learner_created: true
+- name: src/account/dto/PaymentRequest.java
+  visible: true
+  learner_created: true
+- name: src/account/dto/PaymentDto.java
+  visible: true
+  learner_created: true
+- name: src/account/utils/PaymentUtils.java
+  visible: true
+  learner_created: true
+- name: src/account/utils/StringToYearMonthConverter.java
+  visible: true
+  learner_created: true
+- name: src/account/services/PaymentConversionService.java
+  visible: true
+  learner_created: true
+- name: src/account/utils/YearMonthConverter.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/learn/step/16604#comment
-status: Unchecked
-record: -1
+status: Solved
+feedback:
+  message: Congratulations!
+  time: "Thu, 02 Mar 2023 03:23:38 UTC"
+record: 4

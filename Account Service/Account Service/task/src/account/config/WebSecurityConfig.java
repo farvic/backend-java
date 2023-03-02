@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -41,8 +41,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests() // manage access
                 .antMatchers(HttpMethod.POST, "/api/auth/signup").permitAll()
-                .mvcMatchers(HttpMethod.POST,"/api/empl/**").authenticated()
+                .mvcMatchers("/api/empl/**").authenticated()
                 .mvcMatchers(HttpMethod.POST,"/api/auth/**").authenticated()
+//                .mvcMatchers(HttpMethod.GET,"/api/empl/**").authenticated()
                 // other matchers
                 //.anyRequest().authenticated() // all other requests must be authenticated
                 .and()

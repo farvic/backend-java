@@ -11,6 +11,7 @@ import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 
 @RestControllerAdvice
@@ -43,6 +44,26 @@ public class CustomControllerAdvice {
 //        );
 //    }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(DateTimeException.class)
+    public ResponseEntity<ErrorResponse> dateInputException(
+            DateTimeException e, HttpServletRequest request) {
+
+        status = HttpStatus.BAD_REQUEST.value();
+        timestamp = LocalDateTime.now().toString();
+        message = e.getCause().getMessage();
+        path = request.getServletPath();
+
+        return new ResponseEntity<>(
+                new ErrorResponse(
+                        timestamp,
+                        status,
+                        "Bad Request",
+                        message,
+                        path)
+                , HttpStatus.BAD_REQUEST
+        );
+    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MismatchedInputException.class)
