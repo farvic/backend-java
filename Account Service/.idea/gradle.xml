@@ -49,6 +49,8 @@
             <option value="$PROJECT_DIR$/Account Service/task/build/test-results/bin" />
             <option value="$PROJECT_DIR$/Account Service/task/build/tmp" />
             <option value="$PROJECT_DIR$/Account Service/task/build/tmp/bin" />
+            <option value="$PROJECT_DIR$/Topics/LocalDateTime/Merging date-time instances" />
+            <option value="$PROJECT_DIR$/Topics/LocalDateTime/Theory" />
             <option value="$PROJECT_DIR$/util" />
           </set>
         </option>

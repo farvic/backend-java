@@ -57,6 +57,7 @@ public class PaymentServiceImpl implements PaymentService {
     public ResponseBody postPayment(List<PaymentRequest> paymentRequests) {
         ResponseBody responseBody = new ResponseBody();
         Map<String, List<Payment>> paymentMap = new HashMap<>();
+        LOGGER.info("Payment requests: " + paymentRequests);
 
         // Check for duplicate payments for each employee
         paymentRequests.forEach(paymentRequest -> {

@@ -3,14 +3,15 @@ package account.errors;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.TransactionSystemException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.context.request.WebRequest;
+
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.ConstraintViolationException;
+
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 
@@ -23,26 +24,26 @@ public class CustomControllerAdvice {
     String message;
 
 
-//    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-//    @ExceptionHandler(RuntimeException.class)
-//    public ResponseEntity<ErrorResponse> handleBadCredentialsException(
-//            UserExistsException e, HttpServletRequest request) {
-//
-//        status = e.getStatus().value();
-//        timestamp = LocalDateTime.now().toString();
-//        message = e.getMessage();
-//        path = request.getServletPath();
-//
-//        return new ResponseEntity<>(
-//                new ErrorResponse(
-//                        timestamp,
-//                        status,
-//                        e.getError(),
-//                        "",
-//                        path)
-//                , e.getStatus()
-//        );
-//    }
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(TransactionSystemException.class)
+    public ResponseEntity<ErrorResponse> constraintViolationException(
+            TransactionSystemException e, HttpServletRequest request) {
+
+        status = HttpStatus.BAD_REQUEST.value();
+        timestamp = LocalDateTime.now().toString();
+        message = e.getMessage();
+        path = request.getServletPath();
+
+        return new ResponseEntity<>(
+                new ErrorResponse(
+                        timestamp,
+                        status,
+                        "Bad Request",
+                        message,
+                        path)
+                , HttpStatus.BAD_REQUEST
+        );
+    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(DateTimeException.class)

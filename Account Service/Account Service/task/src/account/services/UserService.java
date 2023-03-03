@@ -3,24 +3,25 @@ package account.services;
 import account.domain.User;
 import account.dto.ChangePasswordDto;
 import account.dto.ResponseBody;
+import account.dto.UserDto;
+import account.dto.UserRoleRequest;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 
 public interface UserService {
-    List<User> findAllUsers();
+    List<UserDto> findAllUsers();
 
-    User findUserById(Long id);
+//    UserDto findUserById(Long id);
 
     User findUserByEmail(String email);
 
-    List<User> findUsersByName(String name);
+    UserDto saveUser(User User);
 
-    User saveUser(User User);
+    UserDto changeUserRole(UserRoleRequest userRoleRequest);
 
     ResponseBody changePassword(ChangePasswordDto changePasswordDto, UserDetails userDetails);
 
-    void deleteUserById(Long id);
+    ResponseBody deleteUserByEmail(String email);
 
-    void deleteUser(User User);
 }

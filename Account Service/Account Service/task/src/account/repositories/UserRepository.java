@@ -2,6 +2,7 @@ package account.repositories;
 
 import account.domain.User;
 
+import account.dto.UserDto;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -31,15 +32,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @return the user
      */
 
-    Optional<User> findById(@Param("id") long id);
 
-    /**
-     * Find all the users by name containing the given string
-     *
-     * @param name the name of the user
-     * @return the list of users
-     */
-    List<User> findByNameContaining(@Param("name") String name);
+    Optional<UserDto> findById(@Param("id") long id);
+
 
     /**
      * Save a user
@@ -57,7 +52,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     <S extends User> List<S> saveAll(Iterable<S> users);
 
     // @RestResource(exported = false)
-    void deleteById(long id);
+    void deleteByEmail(String email);
 
     @Override
 //    @RestResource(exported = false)

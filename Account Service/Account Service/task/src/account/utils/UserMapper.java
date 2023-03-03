@@ -2,28 +2,34 @@ package account.utils;
 
 import account.domain.User;
 import account.dto.UserDto;
+import account.dto.UserRequest;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+
+
 
 
 @Component
 public class UserMapper {
     public static UserDto toDto(User user) {
-        UserDto userDto = new UserDto();
-        userDto.setName(user.getName());
-        userDto.setLastname(user.getLastname());
-        userDto.setEmail(user.getEmail());
-        userDto.setPassword(user.getPassword());
-        userDto.setRoles(user.getRoles());
-        return userDto;
+        List<String> roles = user.getSecurityGroup().stream().map(group -> group.getRole().name()).sorted().toList();
+        return new UserDto(
+                user.getId(),
+                user.getName(),
+                user.getLastname(),
+                user.getEmail(),
+                roles
+        );
     }
 
-    public static User toEntity(UserDto userDto) {
+    public static User toEntity(UserRequest userRequest) {
         User user = new User();
-        user.setName(userDto.getName());
-        user.setLastname(userDto.getLastname());
-        user.setPassword(userDto.getPassword());
-        user.setEmail(userDto.getEmail());
-        user.setRoles(userDto.getRoles());
+        user.setName(userRequest.getName());
+        user.setLastname(userRequest.getLastname());
+        user.setPassword(userRequest.getPassword());
+        user.setEmail(userRequest.getEmail());
+        user.setSecurityGroup(userRequest.getSecurityGroup());
         return user;
     }
 }
