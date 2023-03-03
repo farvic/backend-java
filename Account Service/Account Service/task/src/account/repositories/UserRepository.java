@@ -3,10 +3,9 @@ package account.repositories;
 import account.domain.User;
 
 import account.dto.UserDto;
-import io.swagger.v3.oas.annotations.tags.Tag;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.stereotype.Repository;
@@ -15,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-@Tag(name = "User", description = "User API")
+//@Tag(name = "User", description = "User API")
 public interface UserRepository extends JpaRepository<User, Long> {
 
     /**

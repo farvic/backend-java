@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 
-public interface UserService {
+public interface AuthService {
     List<UserDto> findAllUsers();
 
 //    UserDto findUserById(Long id);

@@ -22,6 +22,7 @@ public class DataLoader {
             groupRepository.save(new Group(Role.ROLE_ADMINISTRATOR));
             groupRepository.save(new Group(Role.ROLE_USER));
             groupRepository.save(new Group(Role.ROLE_ACCOUNTANT));
+            groupRepository.save(new Group(Role.ROLE_AUDITOR));
         } catch (Exception e) {
 
         }

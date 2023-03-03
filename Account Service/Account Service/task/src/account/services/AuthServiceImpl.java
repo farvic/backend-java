@@ -1,5 +1,6 @@
 package account.services;
 
+import account.domain.Event;
 import account.domain.Group;
 import account.domain.Role;
 import account.domain.User;
@@ -7,8 +8,8 @@ import account.dto.ChangePasswordDto;
 import account.dto.ResponseBody;
 import account.dto.UserDto;
 import account.dto.UserRoleRequest;
-import account.errors.UserException;
 import account.errors.UserExistsException;
+import account.model.Log;
 import account.model.Operation;
 
 import account.repositories.UserRepository;
@@ -18,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,7 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.Validator;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -32,7 +35,7 @@ import java.util.Set;
 
 
 @Service
-public class UserServiceImpl implements UserService{
+public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private Validator validator;
@@ -43,10 +46,12 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
+    final Logger LOGGER = LoggerFactory.getLogger(AuthServiceImpl.class);
 
     @Autowired
     private GroupServiceImpl groupService;
+    @Autowired
+    private EventServiceImpl eventService;
 
 
     /**
@@ -57,7 +62,7 @@ public class UserServiceImpl implements UserService{
      */
     @Override
     public List<UserDto> findAllUsers() {
-        LOGGER.info("Getting all users");
+
         return userRepository.findAll().stream().map(UserMapper::toDto).toList();
     }
 
@@ -114,6 +119,15 @@ public class UserServiceImpl implements UserService{
 
         user.getSecurityGroup().add(group);
 
+
+        Event event = new Event()
+                .withAction(Log.CREATE_USER)
+                .withSubject("Anonymous")
+                .withObject(user.getEmail());
+
+
+        eventService.logEvent(event);
+
         return UserMapper.toDto(userRepository.save(user));
     }
 
@@ -146,6 +160,13 @@ public class UserServiceImpl implements UserService{
         responseBody.setEmail(_user.getEmail());
         responseBody.setStatus("The password has been updated successfully");
 
+        Event event = new Event()
+                .withAction(Log.CHANGE_PASSWORD)
+                .withSubject(_user.getEmail())
+                .withObject(_user.getEmail());
+
+        eventService.logEvent(event);
+
         return responseBody;
     }
 
@@ -167,6 +188,10 @@ public class UserServiceImpl implements UserService{
         Role roleFromRequest = Role.valueOf("ROLE_" + userRoleRequest.getRole());
         Operation operation = userRoleRequest.getOperation();
 
+        Log action = operation == Operation.GRANT ? Log.GRANT_ROLE : Log.REMOVE_ROLE;
+        String actionName = operation == Operation.GRANT ? "Grant role" : "Remove role";
+
+
         if (roleFromRequest == Role.ROLE_ADMINISTRATOR) {
             if (operation == Operation.REMOVE) {
                 throw new UserExistsException("Bad Request", HttpStatus.BAD_REQUEST, "Can't remove ADMINISTRATOR role!");
@@ -177,6 +202,7 @@ public class UserServiceImpl implements UserService{
         User _user = findUserByEmail(userRoleRequest.getUser());
         Set<Group> userSecurityGroups = new HashSet<>(_user.getSecurityGroup());
 
+
         if (operation == Operation.REMOVE) {
 
             if (userSecurityGroups.stream().noneMatch(group -> group.getRole() == roleFromRequest)) {
@@ -186,9 +212,7 @@ public class UserServiceImpl implements UserService{
             if (userSecurityGroups.size() == 1) {
                 throw new UserExistsException("Bad Request", HttpStatus.BAD_REQUEST, "The user must have at least one role!");
             }
-//            if (_user.getSecurityGroup().stream().findAny(group -> group.(new Group(roleFromRequest)))) {
-//                throw new UserExistsException("Bad Request", HttpStatus.BAD_REQUEST, "The user cannot combine administrative and business roles!");
-//            }
+
 
             userSecurityGroups.removeIf(group -> group.getRole() == roleFromRequest);
         }
@@ -202,6 +226,15 @@ public class UserServiceImpl implements UserService{
 
 
         _user.setSecurityGroup(userSecurityGroups);
+
+        String object = actionName + roleFromRequest.getDescription() + " to " + _user.getEmail();
+
+
+
+        Event event = new Event()
+                .withAction(action)
+                .withObject(_user.getEmail());
+        eventService.logEvent(event);
 
         return UserMapper.toDto(userRepository.save(_user));
     }
@@ -228,6 +261,11 @@ public class UserServiceImpl implements UserService{
 
         responseBody.setUser(email);
         responseBody.setStatus("Deleted successfully!");
+
+        Event event = new Event()
+                .withAction(Log.DELETE_USER)
+                .withObject(email);
+
         return responseBody;
     }
 

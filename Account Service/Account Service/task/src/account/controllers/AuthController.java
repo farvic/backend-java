@@ -4,7 +4,7 @@ package account.controllers;
 import account.domain.User;
 import account.dto.*;
 import account.dto.ResponseBody;
-import account.services.UserServiceImpl;
+import account.services.AuthServiceImpl;
 import account.utils.UserMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -15,33 +15,26 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.transaction.annotation.Transactional;
+
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:28852")
 @RestController
 @RequestMapping("/api")
 @Tag(name = "User", description = "User API")
-public class UserController {
+public class AuthController {
 
-    private final UserServiceImpl userService;
+    private final AuthServiceImpl userService;
 
-    final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+    final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
 
-    public UserController(UserServiceImpl userService) {
+    public AuthController(AuthServiceImpl userService) {
         this.userService = userService;
     }
 
-    @Operation(summary = "Get a User", description = "Get a User", tags = {
-            "User" })
-    @ApiResponse(responseCode = "200", description = "OK")
-    @GetMapping("/admin/user")
-    public ResponseEntity<List<UserDto>> findAll() {
-        return ResponseEntity.ok(userService.findAllUsers());
-    }
+
 
     @Operation(summary = "Create a User", description = "Create a User", tags = {
             "User" })
@@ -62,27 +55,6 @@ public class UserController {
         return userService.changePassword(changePasswordDto, userDetails);
     }
 
-    @Transactional
-    @PutMapping("/admin/user/role")
-    public ResponseEntity<UserDto> setUserRole(@Valid @RequestBody UserRoleRequest userRoleRequest) {
-        return ResponseEntity.ok(userService.changeUserRole(userRoleRequest));
-    }
-
-    @Operation(summary = "Delete a User", description = "Delete a User by id", tags = {
-            "User" })
-    @ApiResponse(responseCode = "200", description = "No content")
-    @DeleteMapping("/admin/user/{email}")
-    public ResponseEntity<ResponseBody> deleteUser(@PathVariable String email) {
-        return ResponseEntity.ok(userService.deleteUserByEmail(email));
-    }
-
-    @Operation(summary = "Get a User by email", description = "Get a User by email", tags = {
-            "User" })
-    @ApiResponse(responseCode = "200", description = "OK")
-    @GetMapping("/email/{email}")
-    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
-        return ResponseEntity.ok(userService.findUserByEmail(email));
-    }
 
 
 }

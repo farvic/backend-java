@@ -39,7 +39,6 @@ public class PaymentController {
             return ResponseEntity.ok(payments);
     }
 
-
     @PostMapping("/acct/payments")
     public ResponseEntity<ResponseBody> postPayment(@Valid @RequestBody List<PaymentRequest> paymentRequest) {
         ResponseBody responseBody = paymentService.postPayment(paymentRequest);

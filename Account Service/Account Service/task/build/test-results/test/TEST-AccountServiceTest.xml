@@ -102,7 +102,7 @@ Start test 29?[0m
 Start test 30?[0m
 ?[1;31m
 Start test 31?[0m
-?[0;34m2023-03-02 23:27:03.700  INFO 26484 --- [io-28852-exec-3] account.services.UserServiceImpl         : Getting all users
+?[0;34m2023-03-02 23:27:03.700  INFO 26484 --- [io-28852-exec-3] account.services.AuthServiceImpl         : Getting all users
 ?[1;31m
 Start test 32?[0m
 ?[0;34m2023-03-02 23:27:04.253  INFO 26484 --- [       Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
@@ -157,12 +157,12 @@ Start test 35?[0m
 ?[0;34m2023-03-02 23:27:18.332  WARN 26484 --- [io-28852-exec-3] a.config.CustomAccessDeniedHandler       : User: maxmustermann@acme.com attempted to access the protected URL: /api/admin/user/johndoe@acme.com
 ?[1;31m
 Start test 36?[0m
-?[0;34m2023-03-02 23:27:18.831  INFO 26484 --- [io-28852-exec-4] account.services.UserServiceImpl         : Getting all users
+?[0;34m2023-03-02 23:27:18.831  INFO 26484 --- [io-28852-exec-4] account.services.AuthServiceImpl         : Getting all users
 ?[1;31m
 Start test 37?[0m
 ?[1;31m
 Start test 38?[0m
-?[0;34m2023-03-02 23:27:19.837  INFO 26484 --- [io-28852-exec-6] account.services.UserServiceImpl         : Getting all users
+?[0;34m2023-03-02 23:27:19.837  INFO 26484 --- [io-28852-exec-6] account.services.AuthServiceImpl         : Getting all users
 ?[1;31m
 Start test 39?[0m
 ?[1;31m
@@ -173,7 +173,7 @@ Start test 41?[0m
 Start test 42?[0m
 ?[1;31m
 Start test 43?[0m
-?[0m?[0;34m2023-03-02 23:27:22.298  INFO 26484 --- [io-28852-exec-1] account.services.UserServiceImpl         : Getting all users
+?[0m?[0;34m2023-03-02 23:27:22.298  INFO 26484 --- [io-28852-exec-1] account.services.AuthServiceImpl         : Getting all users
 ?[1;31m
 Start test 44?[0m
 ?[1;31m
@@ -222,43 +222,43 @@ Start test 46?[0m
 ?[0;34m2023-03-02 23:27:35.329  INFO 26484 --- [io-28852-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 ?[0m?[0;34m2023-03-02 23:27:35.329  INFO 26484 --- [io-28852-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 ?[0m?[0;34m2023-03-02 23:27:35.330  INFO 26484 --- [io-28852-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-?[0m?[0;34m2023-03-02 23:27:36.306  INFO 26484 --- [io-28852-exec-1] account.services.UserServiceImpl         : Getting all users
+?[0m?[0;34m2023-03-02 23:27:36.306  INFO 26484 --- [io-28852-exec-1] account.services.AuthServiceImpl         : Getting all users
 ?[1;31m
 Start test 47?[0m
-?[0;34m2023-03-02 23:27:36.807  INFO 26484 --- [io-28852-exec-2] account.services.UserServiceImpl         : GRANT user role for user: IvanIvanov@acme.com to role: ACCOUNTANT
+?[0;34m2023-03-02 23:27:36.807  INFO 26484 --- [io-28852-exec-2] account.services.AuthServiceImpl         : GRANT user role for user: IvanIvanov@acme.com to role: ACCOUNTANT
 ?[1;31m
 Start test 48?[0m
-?[0;34m2023-03-02 23:27:37.301  INFO 26484 --- [io-28852-exec-3] account.services.UserServiceImpl         : Getting all users
+?[0;34m2023-03-02 23:27:37.301  INFO 26484 --- [io-28852-exec-3] account.services.AuthServiceImpl         : Getting all users
 ?[1;31m
 Start test 49?[0m
-?[0;34m2023-03-02 23:27:37.793  INFO 26484 --- [io-28852-exec-4] account.services.UserServiceImpl         : REMOVE user role for user: IvanIvanov@acme.com to role: ACCOUNTANT
+?[0;34m2023-03-02 23:27:37.793  INFO 26484 --- [io-28852-exec-4] account.services.AuthServiceImpl         : REMOVE user role for user: IvanIvanov@acme.com to role: ACCOUNTANT
 ?[1;31m
 Start test 50?[0m
-?[0;34m2023-03-02 23:27:38.282  INFO 26484 --- [io-28852-exec-5] account.services.UserServiceImpl         : Getting all users
+?[0;34m2023-03-02 23:27:38.282  INFO 26484 --- [io-28852-exec-5] account.services.AuthServiceImpl         : Getting all users
 ?[1;31m
 Start test 51?[0m
-?[0;34m2023-03-02 23:27:38.771  INFO 26484 --- [io-28852-exec-6] account.services.UserServiceImpl         : GRANT user role for user: IvanIvanov@acme.com to role: ACCOUNTANT
+?[0;34m2023-03-02 23:27:38.771  INFO 26484 --- [io-28852-exec-6] account.services.AuthServiceImpl         : GRANT user role for user: IvanIvanov@acme.com to role: ACCOUNTANT
 ?[1;31m
 Start test 52?[0m
-?[0;34m2023-03-02 23:27:39.263  INFO 26484 --- [io-28852-exec-7] account.services.UserServiceImpl         : GRANT user role for user: IvanIvanov@acme.com to role: NEW_ROLE
+?[0;34m2023-03-02 23:27:39.263  INFO 26484 --- [io-28852-exec-7] account.services.AuthServiceImpl         : GRANT user role for user: IvanIvanov@acme.com to role: NEW_ROLE
 ?[1;31m
 Start test 53?[0m
-?[0;34m2023-03-02 23:27:39.756  INFO 26484 --- [io-28852-exec-8] account.services.UserServiceImpl         : GRANT user role for user: IvanIvanov@acme.com to role: ADMINISTRATOR
+?[0;34m2023-03-02 23:27:39.756  INFO 26484 --- [io-28852-exec-8] account.services.AuthServiceImpl         : GRANT user role for user: IvanIvanov@acme.com to role: ADMINISTRATOR
 ?[1;31m
 Start test 54?[0m
-?[0;34m2023-03-02 23:27:40.244  INFO 26484 --- [io-28852-exec-9] account.services.UserServiceImpl         : GRANT user role for user: JohnDoe@acme.com to role: USER
+?[0;34m2023-03-02 23:27:40.244  INFO 26484 --- [io-28852-exec-9] account.services.AuthServiceImpl         : GRANT user role for user: JohnDoe@acme.com to role: USER
 ?[1;31m
 Start test 55?[0m
-?[0;34m2023-03-02 23:27:40.730  INFO 26484 --- [o-28852-exec-10] account.services.UserServiceImpl         : REMOVE user role for user: JohnDoe@acme.com to role: ADMINISTRATOR
+?[0;34m2023-03-02 23:27:40.730  INFO 26484 --- [o-28852-exec-10] account.services.AuthServiceImpl         : REMOVE user role for user: JohnDoe@acme.com to role: ADMINISTRATOR
 ?[1;31m
 Start test 56?[0m
-?[0m?[0;34m2023-03-02 23:27:41.216  INFO 26484 --- [io-28852-exec-1] account.services.UserServiceImpl         : REMOVE user role for user: MaxMustermann@acme.com to role: USER
+?[0m?[0;34m2023-03-02 23:27:41.216  INFO 26484 --- [io-28852-exec-1] account.services.AuthServiceImpl         : REMOVE user role for user: MaxMustermann@acme.com to role: USER
 ?[1;31m
 Start test 57?[0m
-?[0m?[0;34m2023-03-02 23:27:41.704  INFO 26484 --- [io-28852-exec-2] account.services.UserServiceImpl         : REMOVE user role for user: MaxMustermann@acme.com to role: ACCOUNTANT
+?[0m?[0;34m2023-03-02 23:27:41.704  INFO 26484 --- [io-28852-exec-2] account.services.AuthServiceImpl         : REMOVE user role for user: MaxMustermann@acme.com to role: ACCOUNTANT
 ?[1;31m
 Start test 58?[0m
-?[0m?[0;34m2023-03-02 23:27:42.195  INFO 26484 --- [io-28852-exec-3] account.services.UserServiceImpl         : REMOVE user role for user: nautilus@pompilius.com to role: ACCOUNTANT
+?[0m?[0;34m2023-03-02 23:27:42.195  INFO 26484 --- [io-28852-exec-3] account.services.AuthServiceImpl         : REMOVE user role for user: nautilus@pompilius.com to role: ACCOUNTANT
 ?[1;31m
 Start test 59?[0m
 ?[0m?[0;34m2023-03-02 23:27:42.686  WARN 26484 --- [io-28852-exec-4] a.config.CustomAccessDeniedHandler       : User: ivanivanov@acme.com attempted to access the protected URL: /api/admin/user/role
