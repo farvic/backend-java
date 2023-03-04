@@ -7,6 +7,7 @@ import account.dto.UserDto;
 import account.dto.UserRoleRequest;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 public interface AuthService {
@@ -24,4 +25,15 @@ public interface AuthService {
 
     ResponseBody deleteUserByEmail(String email);
 
+    @Transactional
+    void resetFailedAttempts(String email);
+
+    @Transactional
+    void increaseFailedAttempts(String email);
+
+    @Transactional
+    ResponseBody lock(String username);
+
+    @Transactional
+    ResponseBody unlock(String username);
 }

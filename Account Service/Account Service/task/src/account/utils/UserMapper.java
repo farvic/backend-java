@@ -30,6 +30,7 @@ public class UserMapper {
         user.setPassword(userRequest.getPassword());
         user.setEmail(userRequest.getEmail());
         user.setSecurityGroup(userRequest.getSecurityGroup());
+        user.setAccountNonLocked(true);
         return user;
     }
 }

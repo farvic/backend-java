@@ -4,36 +4,57 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e5a01a35-3eea-4b14-aba4-a62b2b9e8607" name="Changes" comment="[Account Service] Part5: done. Roles and authorities implemented.&#10;&#10;The first user is always an admin. The rest are simple users. The admin has the power to grant/remove roles to other users.&#10;The access to certain functions will be explained on the table uploaded later.">
-      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/controllers/SecurityController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/domain/Event.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/dto/EventDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/model/EventBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/model/Log.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/repositories/EventRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/services/EventService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/services/EventServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/utils/EventMapper.java" afterDir="false" />
+    <list default="true" id="e5a01a35-3eea-4b14-aba4-a62b2b9e8607" name="Changes" comment="[Account Service] Part6: Event logging for user events was implemented">
+      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/dto/UserAccessRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/model/AccessOperation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/security/AuthenticationFailureListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/security/AuthenticationSuccessListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/security/CustomLoginFailureHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account Service/task/src/account/security/CustomLoginSuccessHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.3.3/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.3/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.3.3/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.3/checksums/sha1-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/frameworkLessonHistory/storage.storageData" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/frameworkLessonHistory/storage.storageData" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/frameworkLessonHistory/storage.storageRecordIndex" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/frameworkLessonHistory/storage.storageRecordIndex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Account Service/Logging events/task-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/Logging events/task-info.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account Service/The authorization/task-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/The authorization/task-info.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account Service/lesson-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/lesson-info.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/service_db.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/service_db.mv.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/classes/java/main/account/AccountServiceApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/classes/java/main/account/AccountServiceApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/classes/java/main/account/controllers/UserController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/classes/java/main/account/domain/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/classes/java/main/account/domain/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/classes/java/main/account/repositories/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/classes/java/main/account/repositories/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/classes/java/main/account/services/UserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/classes/java/main/account/services/UserServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/classes/java/test/AccountServiceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/classes/java/test/AccountServiceTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Account Service/task/build/reports/tests/test/classes/AccountServiceTest.html" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/reports/tests/test/classes/AccountServiceTest.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/reports/tests/test/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/reports/tests/test/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/reports/tests/test/packages/default-package.html" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/reports/tests/test/packages/default-package.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Account Service/task/build/test-results/test/TEST-AccountServiceTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/test-results/test/TEST-AccountServiceTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/test-results/test/binary/output.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/test-results/test/binary/output.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/test-results/test/binary/output.bin.idx" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/test-results/test/binary/output.bin.idx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/test-results/test/binary/results.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/test-results/test/binary/results.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/build/tmp/compileTestJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/build/tmp/compileTestJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/out/production/classes/account/AccountServiceApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/out/production/classes/account/AccountServiceApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/out/production/classes/account/controllers/UserController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/out/production/classes/account/domain/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/out/production/classes/account/domain/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/out/production/classes/account/errors/CustomControllerAdvice.class" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/out/production/classes/account/errors/CustomControllerAdvice.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/out/production/classes/account/repositories/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/out/production/classes/account/repositories/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/out/production/classes/account/services/UserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/out/production/classes/account/services/UserServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/out/production/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/out/production/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/AccountServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/AccountServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/config/AccountServiceUserDetailsService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/config/CustomAccessDeniedHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/config/CustomAccessDeniedHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/config/RestAuthenticationEntryPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/config/RestAuthenticationEntryPoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/config/UserDetailsImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/config/UserDetailsImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/config/WebSecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/controllers/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/controllers/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/controllers/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/controllers/PaymentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/controllers/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/data/DataLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/data/DataLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/repositories/GroupRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/repositories/GroupRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/repositories/PaymentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/repositories/PaymentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/repositories/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/services/AuthService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/services/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/services/AuthServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account Service/task/test/AccountServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/test/AccountServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/domain/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/domain/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/services/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/services/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/services/AuthServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/services/AuthServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/services/EventServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/services/EventServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/services/UserDetailsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/services/UserDetailsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account Service/task/src/account/utils/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Account Service/task/src/account/utils/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course-remote-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/course-remote-info.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,10 +69,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="Interface" />
         <option value="Record" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -150,7 +171,9 @@
       <workItem from="1677728151699" duration="2108000" />
       <workItem from="1677771565360" duration="599000" />
       <workItem from="1677773532681" duration="30141000" />
-      <workItem from="1677816343212" duration="7231000" />
+      <workItem from="1677816343212" duration="8077000" />
+      <workItem from="1677858659544" duration="13230000" />
+      <workItem from="1677902744702" duration="12388000" />
     </task>
     <task id="LOCAL-00001" summary="Refactoring and unit tests.&#10;&#10;Now the services have an interface and implementation.&#10;The unit tests for entities, services and controllers were implemented.&#10;&#10;More infos soon.">
       <created>1676938521579</created>
@@ -215,7 +238,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677810903502</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="[Account Service] Part6: Event logging for user events was implemented">
+      <created>1677824159081</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1677824159081</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -240,7 +270,8 @@
     <MESSAGE value="[Account Service] Part3: done. Change password and security checker against breached passwords implemented." />
     <MESSAGE value="[Account Service] Part4: done. Employee payment endpoints implemented." />
     <MESSAGE value="[Account Service] Part5: done. Roles and authorities implemented.&#10;&#10;The first user is always an admin. The rest are simple users. The admin has the power to grant/remove roles to other users.&#10;The access to certain functions will be explained on the table uploaded later." />
-    <option name="LAST_COMMIT_MESSAGE" value="[Account Service] Part5: done. Roles and authorities implemented.&#10;&#10;The first user is always an admin. The rest are simple users. The admin has the power to grant/remove roles to other users.&#10;The access to certain functions will be explained on the table uploaded later." />
+    <MESSAGE value="[Account Service] Part6: Event logging for user events was implemented" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Account Service] Part6: Event logging for user events was implemented" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -19,15 +19,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
+import javax.transaction.Transactional;
 import javax.validation.Validator;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -52,6 +51,8 @@ public class AuthServiceImpl implements AuthService {
     private GroupServiceImpl groupService;
     @Autowired
     private EventServiceImpl eventService;
+
+    public static final int MAX_FAILED_ATTEMPTS = 5;
 
 
     /**
@@ -190,6 +191,7 @@ public class AuthServiceImpl implements AuthService {
 
         Log action = operation == Operation.GRANT ? Log.GRANT_ROLE : Log.REMOVE_ROLE;
         String actionName = operation == Operation.GRANT ? "Grant role" : "Remove role";
+        String toOrFromRole = operation == Operation.GRANT ? " to " : " from ";
 
 
         if (roleFromRequest == Role.ROLE_ADMINISTRATOR) {
@@ -227,13 +229,13 @@ public class AuthServiceImpl implements AuthService {
 
         _user.setSecurityGroup(userSecurityGroups);
 
-        String object = actionName + roleFromRequest.getDescription() + " to " + _user.getEmail();
+        String object = actionName + " " + roleFromRequest.getDescription() + toOrFromRole + _user.getEmail();
 
 
 
         Event event = new Event()
                 .withAction(action)
-                .withObject(_user.getEmail());
+                .withObject(object);
         eventService.logEvent(event);
 
         return UserMapper.toDto(userRepository.save(_user));
@@ -265,6 +267,91 @@ public class AuthServiceImpl implements AuthService {
         Event event = new Event()
                 .withAction(Log.DELETE_USER)
                 .withObject(email);
+        eventService.logEvent(event);
+
+        return responseBody;
+    }
+
+    @Override
+    @Transactional
+    public void resetFailedAttempts(String username) {
+        User user = this.findUserByEmail(username);
+        user.setFailedLoginAttempts(0);
+        userRepository.save(user);
+    }
+
+    @Override
+    @Transactional
+    public void increaseFailedAttempts(String username) {
+        User user;
+
+        Event event = new Event()
+                .withAction(Log.LOGIN_FAILED)
+                .withSubject(username);
+        eventService.logEvent(event);
+
+        user = this.findUserByEmail(username);
+
+        user.setFailedLoginAttempts(user.getFailedLoginAttempts() + 1);
+
+        if (user.getFailedLoginAttempts() >= 5) {
+            Event event2 = new Event()
+                    .withAction(Log.BRUTE_FORCE)
+                    .withSubject(user.getEmail());
+            eventService.logEvent(event2);
+
+            if (user.getId() != 1 ) {
+                this.lock(username);
+            }
+        } else
+             userRepository.save(user);
+    }
+
+    @Override
+    @Transactional
+    public ResponseBody lock(String username) {
+
+        ResponseBody responseBody = new ResponseBody();
+
+        User user = this.findUserByEmail(username);
+
+        if (user.getId() == 1) {
+            throw new UserExistsException("Bad Request", HttpStatus.BAD_REQUEST, "Can't lock the ADMINISTRATOR!");
+        }
+
+        user.setAccountNonLocked(false);
+        userRepository.save(user);
+
+        Event event = new Event()
+                .withAction(Log.LOCK_USER)
+                .withSubject(user.getEmail())
+                .withObject("Lock user " + user.getEmail());
+        eventService.logEvent(event);
+
+        responseBody.setStatus("User " + user.getEmail() + " locked!");
+
+        return responseBody;
+    }
+
+    @Override
+    @Transactional
+    public ResponseBody unlock(String username) {
+
+        ResponseBody responseBody = new ResponseBody();
+
+        User user = this.findUserByEmail(username);
+
+        user.setAccountNonLocked(true);
+        user.setFailedLoginAttempts(0);
+        userRepository.save(user);
+
+        Event event = new Event()
+                .withAction(Log.UNLOCK_USER)
+                .withObject("Unlock user " + user.getEmail());
+
+        eventService.logEvent(event);
+
+        responseBody.setStatus("User " + user.getEmail() + " unlocked!");
 
         return responseBody;
     }

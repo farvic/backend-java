@@ -45,6 +45,14 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "group_id", referencedColumnName = "group_id"))
     Set<Group> securityGroup = new HashSet<>();
+
+    private boolean enabled;
+
+    private boolean accountNonLocked;
+
+    private int failedLoginAttempts;
+
+
     public User() {
 
     }
@@ -54,6 +62,7 @@ public class User {
         this.lastname = lastName;
         this.email = email;
         this.password = password;
+        this.accountNonLocked = true;
     }
 
     public User(String name, String lastName, String email, String password, HashSet<Group> securityGroup) {
@@ -62,6 +71,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.securityGroup = securityGroup;
+        this.accountNonLocked = true;
     }
 
     public long getId() {
@@ -113,6 +123,30 @@ public class User {
     }
     public void addSecurityGroup(Group securityGroup) {
         this.securityGroup.add(securityGroup);
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public boolean isAccountNonLocked() {
+        return accountNonLocked;
+    }
+
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+    }
+
+    public int getFailedLoginAttempts() {
+        return failedLoginAttempts;
+    }
+
+    public void setFailedLoginAttempts(int failedLoginAttempts) {
+        this.failedLoginAttempts = failedLoginAttempts;
     }
 
 }

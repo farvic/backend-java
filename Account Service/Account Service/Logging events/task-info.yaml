@@ -1800,14 +1800,6 @@ files:
         Optional<Payment> findByEmployeeAndPeriod(String employee, YearMonth period);
     }
   learner_created: true
-- name: src/account/config/AccountServiceUserDetailsService.java
-  visible: true
-  text: |
-    package account.config;
-
-    public class AccountServiceUserDetailsService {
-    }
-  learner_created: true
 - name: src/account/dto/UserRoleRequest.java
   visible: true
   text: |
@@ -3095,6 +3087,27 @@ files:
 - name: src/account/model/EventBuilder.java
   visible: true
   learner_created: true
+- name: src/account/security/CustomLoginFailureHandler.java
+  visible: true
+  learner_created: true
+- name: src/account/security/CustomLoginSuccessHandler.java
+  visible: true
+  learner_created: true
+- name: src/account/security/AuthenticationFailureListener.java
+  visible: true
+  learner_created: true
+- name: src/account/security/AuthenticationSuccessListener.java
+  visible: true
+  learner_created: true
+- name: src/account/dto/UserAccessRequest.java
+  visible: true
+  learner_created: true
+- name: src/account/model/AccessOperation.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/learn/step/16606#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: Congratulations!
+  time: "Sat, 04 Mar 2023 07:32:28 UTC"
 record: -1

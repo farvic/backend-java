@@ -1,5 +1,7 @@
 package account.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -16,7 +18,18 @@ public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
             HttpServletRequest request,
             HttpServletResponse response,
             AuthenticationException authException) throws IOException, ServletException {
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, " "
+
+        final Logger LOGGER = LoggerFactory.getLogger(RestAuthenticationEntryPoint.class);
+
+//        LOGGER.info("RestAuthenticationEntryPoint: " + authException.getMessage());
+//        LOGGER.info("RestAuthenticationEntryPoint: " + authException.getLocalizedMessage());
+//        LOGGER.info("RestAuthenticationEntryPoint: " + authException.getCause());
+//        LOGGER.info("RestAuthenticationEntryPoint: " + authException.toString());
+
+
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage()
         );
     }
+
+
 }

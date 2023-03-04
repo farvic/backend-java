@@ -3,8 +3,11 @@ package account.controllers;
 
 
 import account.dto.ResponseBody;
+import account.dto.UserAccessRequest;
 import account.dto.UserDto;
 import account.dto.UserRoleRequest;
+
+import account.model.AccessOperation;
 import account.services.AuthServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -44,6 +47,25 @@ public class AdminController {
     @PutMapping("/user/role")
     public ResponseEntity<UserDto> changeUserRoles(@Valid @RequestBody UserRoleRequest userRoleRequest) {
         return ResponseEntity.ok(userService.changeUserRole(userRoleRequest));
+    }
+
+    @Operation(summary = "Lock/unlock user access", description = "Change user access status", tags = {
+            "Admin" })
+    @ApiResponse(responseCode = "200", description = "OK")
+    @Transactional
+    @PutMapping("/user/access")
+    public ResponseEntity<ResponseBody> changeUserAccessStatus(@Valid @RequestBody UserAccessRequest userAccessRequest) {
+
+        AccessOperation access = userAccessRequest.getOperation();
+        ResponseBody responseBody;
+
+        if (access == AccessOperation.LOCK) {
+            responseBody = userService.lock(userAccessRequest.getUser());
+        } else {
+            responseBody = userService.unlock(userAccessRequest.getUser());
+        }
+
+        return ResponseEntity.ok(responseBody);
     }
 
     @Operation(summary = "Delete a User", description = "Delete a User by email", tags = {

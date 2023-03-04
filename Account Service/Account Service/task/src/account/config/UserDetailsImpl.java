@@ -12,31 +12,32 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class UserDetailsImpl implements UserDetails {
+
+    private User user;
     private final String username;
     private final String password;
     private final List<GrantedAuthority> rolesAndAuthorities;
 
+    private final boolean accountNonLocked;
+
     public UserDetailsImpl(User user) {
         username = user.getEmail().toLowerCase();
         password = user.getPassword();
-//        rolesAndAuthorities = List.of(new SimpleGrantedAuthority(user.getSecurityGroup().toString()));
         rolesAndAuthorities = getAuthorities(user);
+        accountNonLocked = user.isAccountNonLocked();
     }
 
+    public User getUser() {
+        return user;
+    }
 
     public List<GrantedAuthority> getAuthorities(User user) {
+
         Set<Group> groups = user.getSecurityGroup();
-        //        return user.getSecurityGroup()
-//                .stream().
-//                map(group ->
-//                        new SimpleGrantedAuthority(
-//                                group.getRole().
-//                                        getDescription()))
-//                .collect(Collectors.toList());
+
         return groups.stream()
                 .map(group -> new SimpleGrantedAuthority(group.getRole().getDescription()))
                 .collect(Collectors.toList());
-
     }
 
     @Override
@@ -62,7 +63,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return accountNonLocked;
     }
 
     @Override

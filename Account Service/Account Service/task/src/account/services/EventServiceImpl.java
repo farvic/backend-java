@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -22,6 +23,9 @@ public class EventServiceImpl implements EventService {
     private final EventRepository eventRepository;
 
     private final HttpServletRequest request;
+
+    private static final String DATE_FORMATTER= "yyyy-MM-dd HH:mm:ss";
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
 
     public EventServiceImpl(EventRepository eventRepository, HttpServletRequest request) {
         this.eventRepository = eventRepository;
@@ -41,7 +45,7 @@ public class EventServiceImpl implements EventService {
             event.withObject(path);
         }
 
-        event.withDate(LocalDateTime.now().toString())
+        event.withDate(LocalDateTime.now().format(formatter))
                 .withPath(path);
         eventRepository.save(event);
     }
